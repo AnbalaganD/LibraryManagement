@@ -37,5 +37,5 @@ jobs:
           
       - name: GitHub Action for Danger-Swift + SwiftLint
         uses: 417-72KI/danger-swiftlint@v5.6
-        with:
-          repo-token: ${{ secrets.GITHUB_TOKEN }}
+        env:
+          GITHUB_TOKEN: ${{ secrets.GITHUB_TOKEN }}
