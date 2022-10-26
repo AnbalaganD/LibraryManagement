@@ -24,7 +24,7 @@ class AddBookController: UIViewController {
     private var stockErrorLabel: UILabel!
     private var descriptionErrorLabel: UILabel!
 
-    // Keyboad handling
+    // Keyboard handling
     private var scrollViewBottomConstraint: NSLayoutConstraint!
     private var scrollView: UIScrollView!
 
