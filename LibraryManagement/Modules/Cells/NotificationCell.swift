@@ -54,7 +54,7 @@ extension NotificationCell {
         let notificationImageView = UIImageView(frame: .zero)
         notificationImageView.translatesAutoresizingMaskIntoConstraints = false
         notificationImageView.contentMode = .scaleToFill
-        notificationImageView.image = UIImage(named: "notification_round")
+        notificationImageView.image = .notificationRound
         baseView.addSubview(notificationImageView)
 
         notificationImageView.leadingAnchor.constraint(equalTo: baseView.leadingAnchor, constant: 8).isActive = true

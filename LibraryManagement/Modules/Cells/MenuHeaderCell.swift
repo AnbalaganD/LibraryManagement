@@ -27,7 +27,7 @@ class MenuHeaderCell: UITableViewHeaderFooterView {
     }
 
     func setupData(data _: Any) {
-        userImageView.image = UIImage(named: "user_place_holder")
+        userImageView.image = .userPlaceHolder
         userNameLabel.text = "Anbalagan D"
     }
 }

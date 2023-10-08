@@ -23,7 +23,6 @@ class BookListController: UIViewController {
         configureSearchController()
         registerCells()
         bookListTableView.reloadData()
-        registerForPreviewing(with: self, sourceView: bookListTableView)
     }
 
     override func viewWillDisappear(_ animated: Bool) {
@@ -110,7 +109,7 @@ extension BookListController {
 
         let emptyImageView = UIImageView(frame: .zero)
         emptyImageView.translatesAutoresizingMaskIntoConstraints = false
-        emptyImageView.image = UIImage(named: "empty_book")
+        emptyImageView.image = .emptyBook
         emptyView.addSubview(emptyImageView)
 
         let emptyTitleLabel = UILabel(frame: .zero)
@@ -161,7 +160,7 @@ extension BookListController {
         let addToolbarItem = UIBarButtonItem(barButtonSystemItem: .add, target: self, action: #selector(addBookTapped))
         navigationItem.rightBarButtonItem = addToolbarItem
 
-        let menuToolbarItem = UIBarButtonItem(image: UIImage(named: "menu"), style: .plain, target: self, action: #selector(menuTapped))
+        let menuToolbarItem = UIBarButtonItem(image: .menu, style: .plain, target: self, action: #selector(menuTapped))
         navigationItem.leftBarButtonItem = menuToolbarItem
     }
 
@@ -224,19 +223,22 @@ extension BookListController: UITableViewDelegate, UITableViewDataSource {
         return true
     }
 
-    func tableView(_: UITableView, editActionsForRowAt indexPath: IndexPath) -> [UITableViewRowAction]? {
-        let editAction = UITableViewRowAction(style: .normal, title: "Edit") { [weak self] _, _ in
-            DispatchQueue.main.asyncAfter(deadline: .now() + 0.5) {
-                if let book = self?.bookList[indexPath.row] {
-                    self?.editBook(book: book)
+    func tableView(
+        _ tableView: UITableView,
+        trailingSwipeActionsConfigurationForRowAt indexPath: IndexPath
+    ) -> UISwipeActionsConfiguration? {
+        UISwipeActionsConfiguration(
+            actions: [
+                .init(style: .normal, title: "Edit") {[weak self] action, view, handler in
+                    if let book = self?.bookList[indexPath.row] {
+                        self?.editBook(book: book)
+                    }
+                },
+                .init(style: .destructive, title: "Delete") {[weak self] action, view, handler in
+                    self?.confirmDelete(indexPath: indexPath)
                 }
-            }
-        }
-
-        let deleteAction = UITableViewRowAction(style: .default, title: "Delete") { [weak self] _, _ in
-            self?.confirmDelete(indexPath: indexPath)
-        }
-        return [editAction, deleteAction]
+            ]
+        )
     }
 }
 
@@ -262,21 +264,7 @@ extension BookListController: AddBookControllerDelegate {
     }
 }
 
-extension BookListController: UIViewControllerPreviewingDelegate, BookDetailPreviewingDelegate {
-    func previewingContext(_ previewingContext: UIViewControllerPreviewing, viewControllerForLocation location: CGPoint) -> UIViewController? {
-        let popController = BookDetailController()
-        guard let indexPath = bookListTableView.indexPathForRow(at: location),
-              let cell = bookListTableView.cellForRow(at: indexPath) else { return nil }
-        popController.initializeData(bookList[indexPath.row])
-        previewingContext.sourceRect = cell.frame
-        popController.delegate = self
-        return popController
-    }
-
-    func previewingContext(_: UIViewControllerPreviewing, commit viewControllerToCommit: UIViewController) {
-        navigationController?.pushViewController(viewControllerToCommit, animated: true)
-    }
-
+extension BookListController: BookDetailPreviewingDelegate {
     func bookDetailController(didSelect action: UIPreviewAction, item: Book) {
         switch action.title {
         case "Edit":

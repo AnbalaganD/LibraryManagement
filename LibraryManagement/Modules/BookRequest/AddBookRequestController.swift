@@ -95,7 +95,7 @@ extension AddBookRequestController {
         rightView.isUserInteractionEnabled = false
         let dropDownImageView = UIImageView(frame: .zero)
         dropDownImageView.translatesAutoresizingMaskIntoConstraints = false
-        dropDownImageView.image = UIImage(named: "drop_down")
+        dropDownImageView.image = .dropDown
         rightView.addSubview(dropDownImageView)
 
         dropDownImageView.centerXAnchor.constraint(equalTo: rightView.centerXAnchor).isActive = true

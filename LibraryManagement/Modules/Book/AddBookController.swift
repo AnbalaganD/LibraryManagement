@@ -214,7 +214,7 @@ extension AddBookController {
         coverImageView = UIImageView(frame: .zero)
         coverImageView.translatesAutoresizingMaskIntoConstraints = false
         coverImageView.contentMode = .scaleToFill
-        coverImageView.image = UIImage(named: "images_placeholder")
+        coverImageView.image = .imagesPlaceholder
         contentView.addSubview(coverImageView)
 
         coverImageView.topAnchor.constraint(equalTo: contentView.topAnchor, constant: 20).isActive = true
@@ -225,7 +225,7 @@ extension AddBookController {
         let editCoverImageView = UIImageView(frame: .zero)
         editCoverImageView.translatesAutoresizingMaskIntoConstraints = false
         editCoverImageView.contentMode = .scaleToFill
-        editCoverImageView.image = UIImage(named: "edit")
+        editCoverImageView.image = .edit
         editCoverImageView.isUserInteractionEnabled = true
         editCoverImageView.backgroundColor = UIColor(white: 0, alpha: 0.3)
         editCoverImageView.addGestureRecognizer(UITapGestureRecognizer(target: self, action: #selector(onEditCoverImageTapped)))

@@ -79,7 +79,7 @@ extension BookCell {
         coverImageView = UIImageView(frame: .zero)
         coverImageView.translatesAutoresizingMaskIntoConstraints = false
         coverImageView.contentMode = .scaleToFill
-        coverImageView.image = UIImage(named: "images_placeholder")
+        coverImageView.image = .imagesPlaceholder
         baseView.addSubview(coverImageView)
 
         coverImageView.leadingAnchor.constraint(equalTo: baseView.leadingAnchor, constant: 8).isActive = true

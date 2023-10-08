@@ -46,7 +46,7 @@ extension NotificationController {
 
         let emptyImageView = UIImageView(frame: .zero)
         emptyImageView.translatesAutoresizingMaskIntoConstraints = false
-        emptyImageView.image = UIImage(named: "notification_empty")
+        emptyImageView.image = .notificationEmpty
         emptyView.addSubview(emptyImageView)
 
         let emptyInfoLabel = UILabel(frame: .zero)

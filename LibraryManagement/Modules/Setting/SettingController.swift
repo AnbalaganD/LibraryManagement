@@ -42,7 +42,7 @@ extension SettingController {
         userImageView.translatesAutoresizingMaskIntoConstraints = false
         userImageView.contentMode = .scaleToFill
         userImageView.layer.cornerRadius = 40
-        userImageView.image = UIImage(named: "user_place_holder")
+        userImageView.image = .userPlaceHolder
         view.addSubview(userImageView)
 
         userImageView.leadingAnchor.constraint(equalTo: view.safeAreaLayoutGuide.leadingAnchor, constant: 20).isActive = true
@@ -90,7 +90,7 @@ extension SettingController {
         let notificationImageView = UIImageView(frame: .zero)
         notificationImageView.translatesAutoresizingMaskIntoConstraints = false
         notificationImageView.contentMode = .scaleToFill
-        notificationImageView.image = UIImage(named: "notification")
+        notificationImageView.image = .notification
         notificationContainerView.addSubview(notificationImageView)
 
         notificationImageView.leadingAnchor.constraint(equalTo: notificationContainerView.leadingAnchor, constant: 15).isActive = true
@@ -135,7 +135,7 @@ extension SettingController {
         let logoutImageView = UIImageView(frame: .zero)
         logoutImageView.translatesAutoresizingMaskIntoConstraints = false
         logoutImageView.contentMode = .scaleToFill
-        logoutImageView.image = UIImage(named: "power")
+        logoutImageView.image = .power
         logoutContainerView.addSubview(logoutImageView)
 
         logoutImageView.leadingAnchor.constraint(equalTo: logoutContainerView.leadingAnchor, constant: 15).isActive = true
