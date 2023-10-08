@@ -34,7 +34,7 @@
 			<key>UIApplicationShortcutItemTitle</key>
 			<string>Search</string>
 			<key>UIApplicationShortcutItemType</key>
-			<string>anbu.Library-Management-Code.search</string>
+			<string>anbu.LibraryManagement.search</string>
 		</dict>
 		<dict>
 			<key>UIApplicationShortcutItemIconType</key>
@@ -44,7 +44,7 @@
 			<key>UIApplicationShortcutItemTitle</key>
 			<string>Add Book</string>
 			<key>UIApplicationShortcutItemType</key>
-			<string>anbu.Library-Management-Code.add</string>
+			<string>anbu.LibraryManagement.add</string>
 		</dict>
 	</array>
 	<key>UILaunchStoryboardName</key>

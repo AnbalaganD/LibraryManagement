@@ -7,6 +7,6 @@
 //
 
 enum ShortcutIdentifier: String {
-    case addBook = "anbu.Library-Management-Code.add"
-    case searchBook = "anbu.Library-Management-Code.search"
+    case addBook = "anbu.LibraryManagement.add"
+    case searchBook = "anbu.LibraryManagement.search"
 }
