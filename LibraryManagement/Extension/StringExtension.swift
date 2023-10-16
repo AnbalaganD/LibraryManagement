@@ -13,7 +13,10 @@ extension String {
         return ""
     }
 
-    func substring(fromIndex: Int, count: Int) -> String {
+    func substring(
+        fromIndex: Int,
+        count: Int
+    ) -> String {
         let startIndex = index(self.startIndex, offsetBy: fromIndex)
         let endIndex = index(self.startIndex, offsetBy: fromIndex + count)
         let range = startIndex ..< endIndex

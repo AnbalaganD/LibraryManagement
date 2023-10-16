@@ -9,7 +9,7 @@
 import UIKit
 
 @IBDesignable
-class ShadowView: UIView {
+final class ShadowView: UIView {
     @IBInspectable public var borderColor: UIColor = .clear {
         didSet {
             updateView()

@@ -7,5 +7,8 @@
 //
 
 enum SideMenuType {
-    case home, bookRequest, notification, setting
+    case home
+    case bookRequest
+    case notification
+    case setting
 }

@@ -8,7 +8,7 @@
 
 import UIKit
 
-class MenuHeaderCell: UITableViewHeaderFooterView {
+final class MenuHeaderCell: UITableViewHeaderFooterView {
     static let cellId = "MenuHeaderCell"
 
     private var userImageView: UIImageView!
@@ -18,7 +18,7 @@ class MenuHeaderCell: UITableViewHeaderFooterView {
     override init(reuseIdentifier: String?) {
         super.init(reuseIdentifier: reuseIdentifier)
         setupView()
-        setupData(data: "")
+        setupData()
     }
 
     @available(*, unavailable)
@@ -26,7 +26,7 @@ class MenuHeaderCell: UITableViewHeaderFooterView {
         fatalError("init(coder:) has not been implemented")
     }
 
-    func setupData(data _: Any) {
+    func setupData() {
         userImageView.image = .userPlaceHolder
         userNameLabel.text = "Anbalagan D"
     }
@@ -40,9 +40,20 @@ extension MenuHeaderCell {
         addSubview(contentView)
 
         NSLayoutConstraint.activate(
-            NSLayoutConstraint.constraints(withVisualFormat: "H:|[contentView]|", options: [], metrics: nil, views: ["contentView": contentView]))
-        NSLayoutConstraint.activate(
-            NSLayoutConstraint.constraints(withVisualFormat: "V:|[contentView]|", options: [], metrics: nil, views: ["contentView": contentView]))
+            NSLayoutConstraint.constraints(
+                withVisualFormat: "H:|[contentView]|",
+                options: [],
+                metrics: nil,
+                views: ["contentView": contentView]
+            )
+            +
+            NSLayoutConstraint.constraints(
+                withVisualFormat: "V:|[contentView]|",
+                options: [],
+                metrics: nil,
+                views: ["contentView": contentView]
+            )
+        )
 
         userImageView = UIImageView(frame: .zero)
         userImageView.translatesAutoresizingMaskIntoConstraints = false

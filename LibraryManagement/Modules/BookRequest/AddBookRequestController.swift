@@ -13,7 +13,7 @@ protocol AddBookRequestDelegate: AnyObject {
     func onNewBookRequestAdded(request: BookRequest)
 }
 
-class AddBookRequestController: UIViewController {
+final class AddBookRequestController: UIViewController {
     private var bookPickerView: UIPickerView!
     private var bookNameTextView: ReadOnlyTextField!
     private var bookNotSelectedErrorLabel: UILabel!
@@ -37,12 +37,14 @@ class AddBookRequestController: UIViewController {
             formatter.pmSymbol = "PM"
             let date = formatter.string(from: Date())
 
-            let bookRequest = BookRequest(id: UUID().uuidString.substring(fromIndex: 0, count: 8),
-                                          userName: "Anbalagan D",
-                                          date: date,
-                                          bookName: book.name,
-                                          status: .pending,
-                                          bookId: book.id)
+            let bookRequest = BookRequest(
+                id: UUID().uuidString.substring(fromIndex: 0, count: 8),
+                userName: "Anbalagan D",
+                date: date,
+                bookName: book.name,
+                status: .pending,
+                bookId: book.id
+            )
 
             BookManager.shared.addBookRequest(request: bookRequest)
             delegate?.onNewBookRequestAdded(request: bookRequest)
@@ -54,14 +56,26 @@ class AddBookRequestController: UIViewController {
                 content.body = "\(bookRequest.userName) is request \(bookRequest.bookName)"
                 content.sound = UNNotificationSound.default
 
-                let trigger = UNTimeIntervalNotificationTrigger(timeInterval: 0.1, repeats: false)
-                let requestId = "newBookRequest"
-                let notificationRequest = UNNotificationRequest(identifier: requestId, content: content, trigger: trigger)
+                let trigger = UNTimeIntervalNotificationTrigger(
+                    timeInterval: 0.1,
+                    repeats: false
+                )
+                let notificationRequest = UNNotificationRequest(
+                    identifier: "newBookRequest",
+                    content: content,
+                    trigger: trigger
+                )
 
                 let notificationDateFormatter = DateFormatter()
                 notificationDateFormatter.dateFormat = "dd/MM/yyyy"
                 let notificationDate = notificationDateFormatter.string(from: Date())
-                NotificationManager.shared.addNotification(notification: LibraryNotification(title: content.title, detail: content.body, date: notificationDate))
+                NotificationManager.shared.addNotification(
+                    notification: LibraryNotification(
+                        title: content.title,
+                        detail: content.body,
+                        date: notificationDate
+                    )
+                )
 
                 UNUserNotificationCenter.current().add(notificationRequest) { error in
                     print(error?.localizedDescription ?? "Error")
@@ -105,9 +119,9 @@ extension AddBookRequestController {
 
         bookNameTextView.rightView = rightView
 
-        bookNameTextView.leadingAnchor.constraint(equalTo: view.safeAreaLayoutGuide.leadingAnchor, constant: 20).isActive = true
-        bookNameTextView.trailingAnchor.constraint(equalTo: view.safeAreaLayoutGuide.trailingAnchor, constant: -20).isActive = true
-        bookNameTextView.topAnchor.constraint(equalTo: view.safeAreaLayoutGuide.topAnchor, constant: 20).isActive = true
+        bookNameTextView.leadingAnchor.constraint(equalTo: view.safeLeadingAnchor, constant: 20).isActive = true
+        bookNameTextView.trailingAnchor.constraint(equalTo: view.safeTrailingAnchor, constant: -20).isActive = true
+        bookNameTextView.topAnchor.constraint(equalTo: view.safeTopAnchor, constant: 20).isActive = true
         bookNameTextView.heightAnchor.constraint(equalToConstant: 40).isActive = true
         bookNameTextView.inputView = bookPickerView
 
@@ -119,7 +133,7 @@ extension AddBookRequestController {
         bookNotSelectedErrorLabel.isHidden = true
         view.addSubview(bookNotSelectedErrorLabel)
 
-        bookNotSelectedErrorLabel.trailingAnchor.constraint(equalTo: view.safeAreaLayoutGuide.trailingAnchor, constant: -20).isActive = true
+        bookNotSelectedErrorLabel.trailingAnchor.constraint(equalTo: view.safeTrailingAnchor, constant: -20).isActive = true
         bookNotSelectedErrorLabel.topAnchor.constraint(equalTo: bookNameTextView.bottomAnchor, constant: 5).isActive = true
 
         let toolbar = UIToolbar()
@@ -143,8 +157,8 @@ extension AddBookRequestController {
         addBookRequestButton.addTarget(self, action: #selector(requestBookTapped), for: .touchUpInside)
         view.addSubview(addBookRequestButton)
 
-        addBookRequestButton.leadingAnchor.constraint(equalTo: view.safeAreaLayoutGuide.leadingAnchor, constant: 20).isActive = true
-        addBookRequestButton.trailingAnchor.constraint(equalTo: view.safeAreaLayoutGuide.trailingAnchor, constant: -20).isActive = true
+        addBookRequestButton.leadingAnchor.constraint(equalTo: view.safeLeadingAnchor, constant: 20).isActive = true
+        addBookRequestButton.trailingAnchor.constraint(equalTo: view.safeTrailingAnchor, constant: -20).isActive = true
         addBookRequestButton.topAnchor.constraint(equalTo: bookNameTextView.bottomAnchor, constant: 35).isActive = true
         addBookRequestButton.heightAnchor.constraint(equalToConstant: 50).isActive = true
     }
@@ -156,11 +170,11 @@ extension AddBookRequestController: UIPickerViewDataSource, UIPickerViewDelegate
     }
 
     func pickerView(_: UIPickerView, numberOfRowsInComponent _: Int) -> Int {
-        return BookManager.shared.getBooks().count
+        BookManager.shared.getBooks().count
     }
 
     func pickerView(_: UIPickerView, titleForRow row: Int, forComponent _: Int) -> String? {
-        return BookManager.shared.getBooks()[row].name
+        BookManager.shared.getBooks()[row].name
     }
 
     func pickerView(_: UIPickerView, didSelectRow row: Int, inComponent _: Int) {
@@ -169,7 +183,7 @@ extension AddBookRequestController: UIPickerViewDataSource, UIPickerViewDelegate
         bookNotSelectedErrorLabel.isHidden = true
     }
 
-    @objc private func pickerDoneTapped(_: UIBarButtonItem) {
+    @objc private func pickerDoneTapped() {
         bookNameTextView.resignFirstResponder()
         let row = bookPickerView.selectedRow(inComponent: 0)
         selectedBook = BookManager.shared.getBooks()[row]
@@ -177,7 +191,7 @@ extension AddBookRequestController: UIPickerViewDataSource, UIPickerViewDelegate
         bookNotSelectedErrorLabel.isHidden = row != -1
     }
 
-    @objc private func pickerCancelTapped(_: UIBarButtonItem) {
+    @objc private func pickerCancelTapped() {
         bookNameTextView.resignFirstResponder()
     }
 }

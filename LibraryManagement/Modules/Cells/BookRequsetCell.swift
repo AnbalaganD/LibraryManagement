@@ -13,7 +13,7 @@ protocol BookRequestCellDelegate: AnyObject {
     func issueBook(request: BookRequest)
 }
 
-class BookRequsetCell: UITableViewCell {
+final class BookRequsetCell: UITableViewCell {
     static let cellId = "BookRequsetCell"
 
     private var userNameLabel: UILabel!
@@ -51,7 +51,7 @@ class BookRequsetCell: UITableViewCell {
     private func updateStatus(_ status: BookRequestStatus) {
         switch status {
         case .accept:
-            statusLabel.textColor = UIColor(hex: "#006400")
+            statusLabel.textColor = UIColor(hex: 0x006400)
             statusLabel.text = "Book Issued"
             issueButton.isHidden = true
             rejectButton.isHidden = true
@@ -101,7 +101,7 @@ extension BookRequsetCell {
         userNameLabel = UILabel(frame: .zero)
         userNameLabel.translatesAutoresizingMaskIntoConstraints = false
         userNameLabel.textColor = .black
-        userNameLabel.font = UIFont.systemFont(ofSize: 16, weight: .semibold)
+        userNameLabel.font = .systemFont(ofSize: 16, weight: .semibold)
         userNameLabel.lineBreakMode = .byTruncatingTail
         baseView.addSubview(userNameLabel)
 
@@ -113,7 +113,7 @@ extension BookRequsetCell {
         requestIdLabel = UILabel(frame: .zero)
         requestIdLabel.translatesAutoresizingMaskIntoConstraints = false
         requestIdLabel.textColor = .black
-        requestIdLabel.font = UIFont.systemFont(ofSize: 14)
+        requestIdLabel.font = .systemFont(ofSize: 14)
         baseView.addSubview(requestIdLabel)
 
         requestIdLabel.leadingAnchor.constraint(equalTo: userNameLabel.trailingAnchor, constant: 10).isActive = true
@@ -123,7 +123,7 @@ extension BookRequsetCell {
         dateLabel = UILabel(frame: .zero)
         dateLabel.translatesAutoresizingMaskIntoConstraints = false
         dateLabel.textColor = .lightGray
-        dateLabel.font = UIFont.systemFont(ofSize: 12, weight: .light)
+        dateLabel.font = .systemFont(ofSize: 12, weight: .light)
         dateLabel.lineBreakMode = .byTruncatingTail
         baseView.addSubview(dateLabel)
 
@@ -135,7 +135,7 @@ extension BookRequsetCell {
         issueButton.backgroundColor = .orange
         issueButton.setTitleColor(.white, for: .normal)
         issueButton.setTitle("   Issue   ", for: .normal)
-        issueButton.titleLabel?.font = UIFont.systemFont(ofSize: 13, weight: .medium)
+        issueButton.titleLabel?.font = .systemFont(ofSize: 13, weight: .medium)
         issueButton.layer.cornerRadius = 3
         issueButton.addTarget(self, action: #selector(issueTapped(_:)), for: .touchUpInside)
         baseView.addSubview(issueButton)
@@ -148,7 +148,7 @@ extension BookRequsetCell {
         rejectButton.backgroundColor = UIColor(white: 0, alpha: 0.1)
         rejectButton.setTitleColor(.gray, for: .normal)
         rejectButton.setTitle("   Reject   ", for: .normal)
-        rejectButton.titleLabel?.font = UIFont.systemFont(ofSize: 13, weight: .medium)
+        rejectButton.titleLabel?.font = .systemFont(ofSize: 13, weight: .medium)
         rejectButton.layer.cornerRadius = 3
         rejectButton.addTarget(self, action: #selector(rejectTapped(_:)), for: .touchUpInside)
         baseView.addSubview(rejectButton)
@@ -158,8 +158,8 @@ extension BookRequsetCell {
 
         bookNameLabel = UILabel(frame: .zero)
         bookNameLabel.translatesAutoresizingMaskIntoConstraints = false
-        bookNameLabel.textColor = UIColor(hex: "#444444")
-        bookNameLabel.font = UIFont.systemFont(ofSize: 14, weight: .regular)
+        bookNameLabel.textColor = UIColor(hex: 0x444444)
+        bookNameLabel.font = .systemFont(ofSize: 14, weight: .regular)
         bookNameLabel.lineBreakMode = .byTruncatingTail
         baseView.addSubview(bookNameLabel)
 
@@ -172,7 +172,7 @@ extension BookRequsetCell {
 
         statusLabel = UILabel(frame: .zero)
         statusLabel.translatesAutoresizingMaskIntoConstraints = false
-        statusLabel.font = UIFont.systemFont(ofSize: 13)
+        statusLabel.font = .systemFont(ofSize: 13)
         statusLabel.text = "Aceept"
         statusLabel.textColor = .green
         baseView.addSubview(statusLabel)

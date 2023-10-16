@@ -12,7 +12,7 @@ protocol AddBookControllerDelegate: AnyObject {
     func onUpdate(book: Book?)
 }
 
-class AddBookController: UIViewController {
+final class AddBookController: UIViewController {
     private var coverImageView: UIImageView!
     private var bookNameTextField: UITextField!
     private var authorTextFeild: UITextField!
@@ -69,25 +69,44 @@ class AddBookController: UIViewController {
     }
 
     @objc private func onEditCoverImageTapped() {
-        let alertController = UIAlertController(title: nil, message: nil, preferredStyle: .actionSheet)
-        alertController.addAction(UIAlertAction(title: "Gallery", style: .default, handler: { [weak self] _ in
-            if let self = self {
-                self.imagePickerControllert.sourceType = .photoLibrary
-                self.present(self.imagePickerControllert, animated: true, completion: nil)
-            }
-        }))
-        alertController.addAction(UIAlertAction(title: "Camera", style: .default, handler: { [weak self] _ in
-            if let self = self {
-                if UIImagePickerController.isSourceTypeAvailable(.camera) {
+        let alertController = UIAlertController(
+            title: nil,
+            message: nil,
+            preferredStyle: .actionSheet
+        )
+        alertController.addAction(
+            UIAlertAction(
+                title: "Gallery",
+                style: .default,
+                handler: {[weak self] _ in
+                    guard let self = self else { return }
+                    self.imagePickerControllert.sourceType = .photoLibrary
+                    self.present(self.imagePickerControllert, animated: true)
+                })
+        )
+        alertController.addAction(
+            UIAlertAction(
+                title: "Camera",
+                style: .default,
+                handler: { [weak self] _ in
+                    guard let self else { return }
+
+                    if !UIImagePickerController.isSourceTypeAvailable(.camera) {
+                        return self.showAlert("Camera Not Available")
+                    }
+
                     self.imagePickerControllert.sourceType = .camera
-                    self.present(self.imagePickerControllert, animated: true, completion: nil)
-                } else {
-                    self.showAlert("Camera Not Available")
+                    self.present(self.imagePickerControllert, animated: true)
                 }
-            }
-        }))
-        alertController.addAction(UIAlertAction(title: "Cancel", style: .cancel, handler: nil))
-        present(alertController, animated: true, completion: nil)
+            )
+        )
+        alertController.addAction(
+            UIAlertAction(
+                title: "Cancel",
+                style: .cancel
+            )
+        )
+        present(alertController, animated: true)
     }
 
     @objc private func cancelTapped(_: UIBarButtonItem) {
@@ -100,13 +119,16 @@ class AddBookController: UIViewController {
         let id = book == nil ? UUID().uuidString : book!.id
         let coverImage = coverImageUrl == nil ? book?.coverImage : coverImageUrl
 
-        let b = Book(id: id,
-                     name: bookNameTextField.text!,
-                     author: authorTextFeild.text!,
-                     description: descriptionTextView.text!,
-                     coverImage: coverImage!,
-                     stock: Int(stockTextFeild.text ?? "0") ?? 0)
-        delegate?.onUpdate(book: b)
+        let book = Book(
+            id: id,
+            name: bookNameTextField.text!,
+            author: authorTextFeild.text!,
+            description: descriptionTextView.text!,
+            coverImage: coverImage!,
+            stock: Int(stockTextFeild.text ?? "0") ?? 0
+        )
+
+        delegate?.onUpdate(book: book)
         view.endEditing(true)
         dismiss(animated: true, completion: nil)
     }
@@ -149,7 +171,11 @@ extension AddBookController: UITextFieldDelegate, UITextViewDelegate {
         return true
     }
 
-    func textField(_ textField: UITextField, shouldChangeCharactersIn range: NSRange, replacementString string: String) -> Bool {
+    func textField(
+        _ textField: UITextField,
+        shouldChangeCharactersIn range: NSRange,
+        replacementString string: String
+    ) -> Bool {
         let currentText = textField.text ?? String.empty
         guard let currentRange = Range(range, in: currentText) else { return true }
         let updatedString = currentText.replacingCharacters(in: currentRange, with: string)
@@ -164,7 +190,11 @@ extension AddBookController: UITextFieldDelegate, UITextViewDelegate {
         return true
     }
 
-    func textView(_ textView: UITextView, shouldChangeTextIn range: NSRange, replacementText text: String) -> Bool {
+    func textView(
+        _ textView: UITextView,
+        shouldChangeTextIn range: NSRange,
+        replacementText text: String
+    ) -> Bool {
         let currentText = textView.text ?? String.empty
         guard let currentRange = Range(range, in: currentText) else { return true }
         let updatedString = currentText.replacingCharacters(in: currentRange, with: text)
@@ -176,7 +206,10 @@ extension AddBookController: UITextFieldDelegate, UITextViewDelegate {
 }
 
 extension AddBookController: UIImagePickerControllerDelegate, UINavigationControllerDelegate {
-    func imagePickerController(_ picker: UIImagePickerController, didFinishPickingMediaWithInfo info: [UIImagePickerController.InfoKey: Any]) {
+    func imagePickerController(
+        _ picker: UIImagePickerController,
+        didFinishPickingMediaWithInfo info: [UIImagePickerController.InfoKey: Any]
+    ) {
         picker.dismiss(animated: true, completion: nil)
         coverImageView.image = info[.originalImage] as? UIImage
         coverImageUrl = (info[.imageURL] as? URL)?.absoluteString
@@ -192,10 +225,10 @@ extension AddBookController {
         scrollView.translatesAutoresizingMaskIntoConstraints = false
         view.addSubview(scrollView)
 
-        scrollView.leadingAnchor.constraint(equalTo: view.safeAreaLayoutGuide.leadingAnchor).isActive = true
-        scrollView.trailingAnchor.constraint(equalTo: view.safeAreaLayoutGuide.trailingAnchor).isActive = true
-        scrollView.topAnchor.constraint(equalTo: view.safeAreaLayoutGuide.topAnchor).isActive = true
-        scrollViewBottomConstraint = scrollView.bottomAnchor.constraint(equalTo: view.safeAreaLayoutGuide.bottomAnchor)
+        scrollView.leadingAnchor.constraint(equalTo: view.safeLeadingAnchor).isActive = true
+        scrollView.trailingAnchor.constraint(equalTo: view.safeTrailingAnchor).isActive = true
+        scrollView.topAnchor.constraint(equalTo: view.safeTopAnchor).isActive = true
+        scrollViewBottomConstraint = scrollView.bottomAnchor.constraint(equalTo: view.safeBottomAnchor)
         scrollViewBottomConstraint.isActive = true
 
         let contentView = UIView(frame: .zero)
@@ -387,10 +420,18 @@ extension AddBookController {
     }
 
     private func setupToolbar() {
-        let doneToolbarItem = UIBarButtonItem(barButtonSystemItem: .done, target: self, action: #selector(doneTapped))
+        let doneToolbarItem = UIBarButtonItem(
+            barButtonSystemItem: .done,
+            target: self,
+            action: #selector(doneTapped)
+        )
         navigationItem.rightBarButtonItem = doneToolbarItem
 
-        let cancelToolbarItem = UIBarButtonItem(barButtonSystemItem: .cancel, target: self, action: #selector(cancelTapped))
+        let cancelToolbarItem = UIBarButtonItem(
+            barButtonSystemItem: .cancel,
+            target: self,
+            action: #selector(cancelTapped)
+        )
         navigationItem.leftBarButtonItem = cancelToolbarItem
     }
 }
@@ -398,13 +439,33 @@ extension AddBookController {
 // Keyboard Handling
 extension AddBookController {
     private func enableKeyboadHandling() {
-        NotificationCenter.default.addObserver(self, selector: #selector(onKeyboardShow(notification:)), name: UIResponder.keyboardWillShowNotification, object: nil)
+        NotificationCenter.default.addObserver(
+            self,
+            selector: #selector(onKeyboardShow(notification:)),
+            name: UIResponder.keyboardWillShowNotification,
+            object: nil
+        )
 
-        NotificationCenter.default.addObserver(self, selector: #selector(onKeyboardHide(notification:)), name: UIResponder.keyboardWillHideNotification, object: nil)
+        NotificationCenter.default.addObserver(
+            self,
+            selector: #selector(onKeyboardHide(notification:)),
+            name: UIResponder.keyboardWillHideNotification,
+            object: nil
+        )
 
-        NotificationCenter.default.addObserver(self, selector: #selector(onInputViewBeginEdit(notification:)), name: UITextField.textDidBeginEditingNotification, object: nil)
+        NotificationCenter.default.addObserver(
+            self,
+            selector: #selector(onInputViewBeginEdit(notification:)),
+            name: UITextField.textDidBeginEditingNotification,
+            object: nil
+        )
 
-        NotificationCenter.default.addObserver(self, selector: #selector(onInputViewBeginEdit(notification:)), name: UITextView.textDidBeginEditingNotification, object: nil)
+        NotificationCenter.default.addObserver(
+            self,
+            selector: #selector(onInputViewBeginEdit(notification:)),
+            name: UITextView.textDidBeginEditingNotification,
+            object: nil
+        )
     }
 
     @objc private func onKeyboardShow(notification: Notification) {
@@ -423,7 +484,10 @@ extension AddBookController {
 
     @objc private func onInputViewBeginEdit(notification: Notification) {
         if let inputView = notification.object as? UIView {
-            scrollView.scrollRectToVisible(inputView.frame, animated: true)
+            scrollView.scrollRectToVisible(
+                inputView.frame,
+                animated: true
+            )
         }
     }
 }

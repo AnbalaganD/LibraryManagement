@@ -8,7 +8,7 @@
 
 import UIKit
 
-class ReadOnlyTextField: UITextField {
+final class ReadOnlyTextField: UITextField {
     override init(frame: CGRect) {
         super.init(frame: frame)
 
@@ -21,11 +21,16 @@ class ReadOnlyTextField: UITextField {
         super.init(coder: aDecoder)
     }
 
-    override func caretRect(for _: UITextPosition) -> CGRect {
+    override func caretRect(
+        for _: UITextPosition
+    ) -> CGRect {
         return .zero
     }
 
-    override func canPerformAction(_: Selector, withSender _: Any?) -> Bool {
+    override func canPerformAction(
+        _: Selector,
+        withSender _: Any?
+    ) -> Bool {
         return false
     }
 }

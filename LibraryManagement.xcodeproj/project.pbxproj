@@ -34,6 +34,7 @@
 		5435EDFA229FA36A00A2FCC1 /* NotificationManager.swift in Sources */ = {isa = PBXBuildFile; fileRef = 5435EDF9229FA36A00A2FCC1 /* NotificationManager.swift */; };
 		543AF31A229BEE2300158D28 /* BookManger.swift in Sources */ = {isa = PBXBuildFile; fileRef = 543AF319229BEE2300158D28 /* BookManger.swift */; };
 		543AF31D229C100700158D28 /* NotificationController.swift in Sources */ = {isa = PBXBuildFile; fileRef = 543AF31C229C100700158D28 /* NotificationController.swift */; };
+		54673FF32ADCE00D0073B0A6 /* UIViewExtension.swift in Sources */ = {isa = PBXBuildFile; fileRef = 54673FF22ADCE00D0073B0A6 /* UIViewExtension.swift */; };
 		54C355FC229269490003E57D /* SideMenu.swift in Sources */ = {isa = PBXBuildFile; fileRef = 54C355FB229269490003E57D /* SideMenu.swift */; };
 		54C355FF229293BC0003E57D /* BookRequestController.swift in Sources */ = {isa = PBXBuildFile; fileRef = 54C355FE229293BC0003E57D /* BookRequestController.swift */; };
 		54C356012292AAF70003E57D /* SideMenuType.swift in Sources */ = {isa = PBXBuildFile; fileRef = 54C356002292AAF70003E57D /* SideMenuType.swift */; };
@@ -75,6 +76,7 @@
 		5435EDF9229FA36A00A2FCC1 /* NotificationManager.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = NotificationManager.swift; sourceTree = "<group>"; };
 		543AF319229BEE2300158D28 /* BookManger.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = BookManger.swift; sourceTree = "<group>"; };
 		543AF31C229C100700158D28 /* NotificationController.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = NotificationController.swift; sourceTree = "<group>"; };
+		54673FF22ADCE00D0073B0A6 /* UIViewExtension.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = UIViewExtension.swift; sourceTree = "<group>"; };
 		54C355FB229269490003E57D /* SideMenu.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = SideMenu.swift; sourceTree = "<group>"; };
 		54C355FE229293BC0003E57D /* BookRequestController.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = BookRequestController.swift; sourceTree = "<group>"; };
 		54C356002292AAF70003E57D /* SideMenuType.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = SideMenuType.swift; sourceTree = "<group>"; };
@@ -171,6 +173,7 @@
 				540B3662228C3A0800D123EE /* ColorExtension.swift */,
 				540B3664228C3A3800D123EE /* StringExtension.swift */,
 				540B3666228C3AB300D123EE /* ViewControllerExtension.swift */,
+				54673FF22ADCE00D0073B0A6 /* UIViewExtension.swift */,
 			);
 			path = Extension;
 			sourceTree = "<group>";
@@ -357,6 +360,7 @@
 				540B3669228C3B1000D123EE /* Constants.swift in Sources */,
 				5415911C22951AB5002EAF66 /* BookRequestStatus.swift in Sources */,
 				54CD5A16229D185E00B73CC1 /* AppSettings.swift in Sources */,
+				54673FF32ADCE00D0073B0A6 /* UIViewExtension.swift in Sources */,
 				54CD5A18229D352300B73CC1 /* NotificationCell.swift in Sources */,
 				5405B86C229E982900591FFD /* ReadOnlyTextField.swift in Sources */,
 				5407B6F6228D8025000B1580 /* SlideTransitionDelegate.swift in Sources */,

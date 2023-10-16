@@ -9,10 +9,13 @@
 import UIKit
 
 protocol BookDetailPreviewingDelegate: AnyObject {
-    func bookDetailController(didSelect action: UIPreviewAction, item: Book)
+    func bookDetailController(
+        didSelect action: UIPreviewAction,
+        item: Book
+    )
 }
 
-class BookDetailController: UIViewController {
+final class BookDetailController: UIViewController {
     private var coverImageView: UIImageView!
     private var bookNameLabel: UILabel!
     private var authorLabel: UILabel!
@@ -62,16 +65,26 @@ class BookDetailController: UIViewController {
     }
 
     override var previewActionItems: [UIPreviewActionItem] {
-        let deleteAction = UIPreviewAction(title: "Delete", style: .destructive) { [weak self] action, _ in
-            if let self = self {
-                self.delegate?.bookDetailController(didSelect: action, item: self.book)
-            }
+        let deleteAction = UIPreviewAction(
+            title: "Delete",
+            style: .destructive
+        ) { [weak self] action, _ in
+            guard let self = self else { return }
+            self.delegate?.bookDetailController(
+                didSelect: action,
+                item: self.book
+            )
         }
 
-        let editAction = UIPreviewAction(title: "Edit", style: .default) { [weak self] action, _ in
-            if let self = self {
-                self.delegate?.bookDetailController(didSelect: action, item: self.book)
-            }
+        let editAction = UIPreviewAction(
+            title: "Edit",
+            style: .default
+        ) {[weak self] action, _ in
+            guard let self = self else { return }
+            self.delegate?.bookDetailController(
+                didSelect: action,
+                item: self.book
+            )
         }
 
         return [editAction, deleteAction]
@@ -87,10 +100,10 @@ extension BookDetailController {
         scrollView.translatesAutoresizingMaskIntoConstraints = false
         view.addSubview(scrollView)
 
-        scrollView.leadingAnchor.constraint(equalTo: view.safeAreaLayoutGuide.leadingAnchor).isActive = true
-        scrollView.trailingAnchor.constraint(equalTo: view.safeAreaLayoutGuide.trailingAnchor).isActive = true
-        scrollView.topAnchor.constraint(equalTo: view.safeAreaLayoutGuide.topAnchor).isActive = true
-        scrollView.bottomAnchor.constraint(equalTo: view.safeAreaLayoutGuide.bottomAnchor).isActive = true
+        scrollView.leadingAnchor.constraint(equalTo: view.safeLeadingAnchor).isActive = true
+        scrollView.trailingAnchor.constraint(equalTo: view.safeTrailingAnchor).isActive = true
+        scrollView.topAnchor.constraint(equalTo: view.safeTopAnchor).isActive = true
+        scrollView.bottomAnchor.constraint(equalTo: view.safeBottomAnchor).isActive = true
 
         let contentView = UIView(frame: .zero)
         contentView.translatesAutoresizingMaskIntoConstraints = false

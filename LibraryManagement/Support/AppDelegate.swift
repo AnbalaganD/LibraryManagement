@@ -10,21 +10,26 @@ import UIKit
 import UserNotifications
 
 @UIApplicationMain
-class AppDelegate: UIResponder, UIApplicationDelegate {
+final class AppDelegate: UIResponder, UIApplicationDelegate {
     var window: UIWindow?
 
     var launchedShortcutItem: UIApplicationShortcutItem?
 
-    func application(_ application: UIApplication, didFinishLaunchingWithOptions _: [UIApplication.LaunchOptionsKey: Any]?) -> Bool {
+    func application(
+        _ application: UIApplication,
+        didFinishLaunchingWithOptions _: [UIApplication.LaunchOptionsKey: Any]?
+    ) -> Bool {
         window = UIWindow(frame: UIScreen.main.bounds)
 
-        UNUserNotificationCenter.current().requestAuthorization(options: [.alert, .badge, .sound]) { granted, _ in
+        UNUserNotificationCenter.current().requestAuthorization(
+            options: [.alert, .badge, .sound]
+        ) { granted, _ in
             if !granted {
                 print("User has declined notification")
             }
         }
         UNUserNotificationCenter.current().delegate = self
-        application.applicationIconBadgeNumber = 0
+        UNUserNotificationCenter.current().setBadgeCount(0)
         let navController = UINavigationController(rootViewController: BookListController())
         window?.rootViewController = navController
 
@@ -35,10 +40,14 @@ class AppDelegate: UIResponder, UIApplicationDelegate {
     }
 
     func applicationDidBecomeActive(_ application: UIApplication) {
-        application.applicationIconBadgeNumber = 0
+        UNUserNotificationCenter.current().setBadgeCount(0)
     }
 
-    func application(_: UIApplication, performActionFor shortcutItem: UIApplicationShortcutItem, completionHandler _: @escaping (Bool) -> Void) {
+    func application(
+        _: UIApplication,
+        performActionFor shortcutItem: UIApplicationShortcutItem,
+        completionHandler _: @escaping (Bool) -> Void
+    ) {
         if let shortcutItemType = ShortcutIdentifier(rawValue: shortcutItem.type) {
             switch shortcutItemType {
             case .addBook:
@@ -47,7 +56,7 @@ class AppDelegate: UIResponder, UIApplicationDelegate {
                         if bookListController.presentedViewController != nil {
                             bookListController.presentedViewController?.dismiss(animated: false, completion: nil)
                         }
-                        bookListController.addBookTapped(String.empty)
+                        bookListController.addBookTapped()
                     }
                 }
             case .searchBook:
@@ -62,14 +71,22 @@ class AppDelegate: UIResponder, UIApplicationDelegate {
 }
 
 extension AppDelegate: UNUserNotificationCenterDelegate {
-    func userNotificationCenter(_: UNUserNotificationCenter, didReceive response: UNNotificationResponse, withCompletionHandler completionHandler: @escaping () -> Void) {
-        UIApplication.shared.applicationIconBadgeNumber = 0
+    func userNotificationCenter(
+        _: UNUserNotificationCenter,
+        didReceive response: UNNotificationResponse,
+        withCompletionHandler completionHandler: @escaping () -> Void
+    ) {
+        UNUserNotificationCenter.current().setBadgeCount(0)
         print(response.notification.request.content.title)
         completionHandler()
     }
 
-    func userNotificationCenter(_: UNUserNotificationCenter, willPresent _: UNNotification, withCompletionHandler completionHandler: @escaping (UNNotificationPresentationOptions) -> Void) {
-        UIApplication.shared.applicationIconBadgeNumber = 0
-        completionHandler([.alert, .badge, .sound])
+    func userNotificationCenter(
+        _: UNUserNotificationCenter,
+        willPresent _: UNNotification,
+        withCompletionHandler completionHandler: @escaping (UNNotificationPresentationOptions) -> Void
+    ) {
+        UNUserNotificationCenter.current().setBadgeCount(0)
+        completionHandler([.list, .banner, .badge, .sound])
     }
 }

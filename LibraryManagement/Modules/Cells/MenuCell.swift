@@ -8,7 +8,7 @@
 
 import UIKit
 
-class MenuCell: UITableViewCell {
+final class MenuCell: UITableViewCell {
     static let cellId = "MenuCell"
 
     private var menuImageView: UIImageView!

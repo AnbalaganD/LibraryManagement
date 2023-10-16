@@ -8,7 +8,7 @@
 
 import UIKit
 
-class NotificationCell: UITableViewCell {
+final class NotificationCell: UITableViewCell {
     static let cellId = "NotificationCell"
 
     private var notificationTitleLabel: UILabel!
@@ -87,7 +87,7 @@ extension NotificationCell {
         notificationDetailLabel = UILabel(frame: .zero)
         notificationDetailLabel.translatesAutoresizingMaskIntoConstraints = false
         notificationDetailLabel.numberOfLines = 0
-        notificationDetailLabel.textColor = UIColor(hex: "#444444")
+        notificationDetailLabel.textColor = UIColor(hex: 0x444444)
         notificationDetailLabel.font = UIFont.systemFont(ofSize: 14, weight: .regular)
         baseView.addSubview(notificationDetailLabel)
 

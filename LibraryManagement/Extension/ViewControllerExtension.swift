@@ -10,8 +10,12 @@ import UIKit
 
 extension UIViewController {
     func hideKeyboardWhenTapArround() {
-        let tap = UITapGestureRecognizer(target: self, action: #selector(dissimsKeyboard))
-        view.addGestureRecognizer(tap)
+        view.addGestureRecognizer(
+            UITapGestureRecognizer(
+                target: self,
+                action: #selector(dissimsKeyboard)
+            )
+        )
     }
 
     @objc func dissimsKeyboard() {
@@ -19,10 +23,20 @@ extension UIViewController {
     }
 
     func showAlert(_ mgs: String) {
-        let alertController = UIAlertController(title: Constants.appName, message:
-            mgs, preferredStyle: .alert)
-        alertController.addAction(UIAlertAction(title: Constants.Message.dismiss, style: UIAlertAction.Style.cancel, handler: nil))
-        present(alertController, animated: true, completion: nil)
+        let alertController = UIAlertController(
+            title: Constants.appName,
+            message:
+                mgs,
+            preferredStyle: .alert
+        )
+
+        alertController.addAction(
+            UIAlertAction(
+                title: Constants.Message.dismiss,
+                style: .cancel
+            )
+        )
+        present(alertController, animated: true)
     }
 
     func setStatusBarColor(color: UIColor) {

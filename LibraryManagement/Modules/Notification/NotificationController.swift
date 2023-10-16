@@ -8,7 +8,7 @@
 
 import UIKit
 
-class NotificationController: UIViewController {
+final class NotificationController: UIViewController {
     private var notificationTableView: UITableView!
     private var emptyView: UIView!
 
@@ -20,13 +20,16 @@ class NotificationController: UIViewController {
     }
 
     private func registerCell() {
-        notificationTableView.register(NotificationCell.self, forCellReuseIdentifier: NotificationCell.cellId)
+        notificationTableView.register(
+            NotificationCell.self,
+            forCellReuseIdentifier: NotificationCell.cellId
+        )
     }
 }
 
 extension NotificationController {
     private func setupView() {
-        view.backgroundColor = UIColor(hex: "#f9feff")
+        view.backgroundColor = .init(hex: 0xF9FEFF)
         title = "Notification"
 
         notificationTableView = UITableView(frame: .zero)
@@ -36,11 +39,6 @@ extension NotificationController {
         notificationTableView.dataSource = self
         notificationTableView.rowHeight = 80
         view.addSubview(notificationTableView)
-
-        notificationTableView.leadingAnchor.constraint(equalTo: view.safeAreaLayoutGuide.leadingAnchor).isActive = true
-        notificationTableView.trailingAnchor.constraint(equalTo: view.safeAreaLayoutGuide.trailingAnchor).isActive = true
-        notificationTableView.topAnchor.constraint(equalTo: view.safeAreaLayoutGuide.topAnchor).isActive = true
-        notificationTableView.bottomAnchor.constraint(equalTo: view.safeAreaLayoutGuide.bottomAnchor).isActive = true
 
         emptyView = UIView(frame: .zero)
 
@@ -58,29 +56,41 @@ extension NotificationController {
         emptyInfoLabel.numberOfLines = 0
         emptyView.addSubview(emptyInfoLabel)
 
-        emptyImageView.centerYAnchor.constraint(equalTo: emptyView.centerYAnchor, constant: -20).isActive = true
-        emptyImageView.centerXAnchor.constraint(equalTo: emptyView.centerXAnchor).isActive = true
-        emptyImageView.heightAnchor.constraint(equalToConstant: 120).isActive = true
-        emptyImageView.widthAnchor.constraint(equalToConstant: 120).isActive = true
+        NSLayoutConstraint.activate([
+            notificationTableView.leadingAnchor.constraint(equalTo: view.safeLeadingAnchor),
+            notificationTableView.trailingAnchor.constraint(equalTo: view.safeTrailingAnchor),
+            notificationTableView.topAnchor.constraint(equalTo: view.safeTopAnchor),
+            notificationTableView.bottomAnchor.constraint(equalTo: view.safeBottomAnchor),
+            
+            emptyImageView.centerYAnchor.constraint(equalTo: emptyView.centerYAnchor, constant: -20),
+            emptyImageView.centerXAnchor.constraint(equalTo: emptyView.centerXAnchor),
+            emptyImageView.heightAnchor.constraint(equalToConstant: 120),
+            emptyImageView.widthAnchor.constraint(equalToConstant: 120),
 
-        emptyInfoLabel.leadingAnchor.constraint(equalTo: emptyView.leadingAnchor, constant: 40).isActive = true
-        emptyInfoLabel.trailingAnchor.constraint(equalTo: emptyView.trailingAnchor, constant: -40).isActive = true
-        emptyInfoLabel.topAnchor.constraint(equalTo: emptyImageView.bottomAnchor, constant: 15).isActive = true
+            emptyInfoLabel.leadingAnchor.constraint(equalTo: emptyView.leadingAnchor, constant: 40),
+            emptyInfoLabel.trailingAnchor.constraint(equalTo: emptyView.trailingAnchor, constant: -40),
+            emptyInfoLabel.topAnchor.constraint(equalTo: emptyImageView.bottomAnchor, constant: 15)
+        ])
     }
 }
 
 extension NotificationController: UITableViewDataSource {
-    func tableView(_ tableView: UITableView, numberOfRowsInSection _: Int) -> Int {
-        if NotificationManager.shared.getNotification().count == 0 {
-            tableView.backgroundView = emptyView
-        } else {
-            tableView.backgroundView = nil
-        }
+    func tableView(
+        _ tableView: UITableView,
+        numberOfRowsInSection _: Int
+    ) -> Int {
+        let notificationCount = NotificationManager.shared.getNotification().count
+        tableView.backgroundView = notificationCount == 0 ? emptyView : nil
         return NotificationManager.shared.getNotification().count
     }
 
-    func tableView(_ tableView: UITableView, cellForRowAt indexPath: IndexPath) -> UITableViewCell {
-        let cell = tableView.dequeueReusableCell(withIdentifier: NotificationCell.cellId) as! NotificationCell
+    func tableView(
+        _ tableView: UITableView,
+        cellForRowAt indexPath: IndexPath
+    ) -> UITableViewCell {
+        let cell = tableView.dequeueReusableCell(
+            withIdentifier: NotificationCell.cellId
+        ) as! NotificationCell
         cell.setupData(data: NotificationManager.shared.getNotification()[indexPath.row])
         return cell
     }

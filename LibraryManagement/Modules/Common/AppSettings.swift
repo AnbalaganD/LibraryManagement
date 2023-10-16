@@ -8,13 +8,13 @@
 
 import Foundation
 
-class AppSettings {
+typealias UserDefaultsKey = Constants.UserDefaults
+
+enum AppSettings {
+    private static var userDefault = UserDefaults.standard
+
     static var isNotificationEnable: Bool {
-        get {
-            return UserDefaults.standard.bool(forKey: Constants.UserDefaults.isNotificationEnable)
-        }
-        set {
-            UserDefaults.standard.set(newValue, forKey: Constants.UserDefaults.isNotificationEnable)
-        }
+        get { userDefault.bool(forKey: UserDefaultsKey.isNotificationEnable) }
+        set { userDefault.set(newValue, forKey: UserDefaultsKey.isNotificationEnable) }
     }
 }

@@ -8,9 +8,15 @@
 
 import UIKit
 
-class SideMenuController: UIViewController {
+protocol SideMenuDelegate: AnyObject {
+    func didSelect(_ controller: SideMenuController, menu: SideMenu)
+}
+
+final class SideMenuController: UIViewController {
     private var sideMenuTableView: UITableView!
     private var sideMenuList = [SideMenu]()
+
+    weak var delegate: SideMenuDelegate?
 
     override func viewDidLoad() {
         super.viewDidLoad()
@@ -35,67 +41,97 @@ extension SideMenuController {
         sideMenuTableView.delegate = self
         view.addSubview(sideMenuTableView)
 
-        sideMenuTableView.leadingAnchor.constraint(equalTo: view.safeAreaLayoutGuide.leadingAnchor).isActive = true
-        sideMenuTableView.trailingAnchor.constraint(equalTo: view.safeAreaLayoutGuide.trailingAnchor).isActive = true
-        sideMenuTableView.topAnchor.constraint(equalTo: view.safeAreaLayoutGuide.topAnchor).isActive = true
-        sideMenuTableView.bottomAnchor.constraint(equalTo: view.safeAreaLayoutGuide.bottomAnchor).isActive = true
+        sideMenuTableView.leadingAnchor.constraint(equalTo: view.safeLeadingAnchor).isActive = true
+        sideMenuTableView.trailingAnchor.constraint(equalTo: view.safeTrailingAnchor).isActive = true
+        sideMenuTableView.topAnchor.constraint(equalTo: view.safeTopAnchor).isActive = true
+        sideMenuTableView.bottomAnchor.constraint(equalTo: view.safeBottomAnchor).isActive = true
     }
 
     private func registerCell() {
-        sideMenuTableView.register(MenuCell.self, forCellReuseIdentifier: MenuCell.cellId)
+        sideMenuTableView.register(
+            MenuCell.self,
+            forCellReuseIdentifier: MenuCell.cellId
+        )
     }
 
     private func loadMenuData() {
         let notificationCount = NotificationManager.shared.getNotification().count
-        sideMenuList.append(SideMenu(title: "Home", image: "home", isSelected: true, type: .home, badge: 0))
-        sideMenuList.append(SideMenu(title: "Book Request", image: "message", isSelected: false, type: .bookRequest, badge: 0))
-        sideMenuList.append(SideMenu(title: "Notification", image: "notification", isSelected: false, type: .notification, badge: notificationCount))
-        sideMenuList.append(SideMenu(title: "Settings", image: "setting", isSelected: false, type: .setting, badge: 0))
+        sideMenuList.append(
+            contentsOf: [
+                SideMenu(
+                    title: "Home",
+                    image: "home",
+                    isSelected: true,
+                    type: .home,
+                    badge: 0
+                ),
+                SideMenu(
+                    title: "Book Request",
+                    image: "message",
+                    isSelected: false,
+                    type: .bookRequest,
+                    badge: 0
+                ),
+                SideMenu(
+                    title: "Notification",
+                    image: "notification",
+                    isSelected: false,
+                    type: .notification,
+                    badge: notificationCount
+                ),
+                SideMenu(
+                    title: "Settings",
+                    image: "setting",
+                    isSelected: false,
+                    type: .setting,
+                    badge: 0
+                )
+            ]
+        )
     }
 
     private func menuTapped(index: Int) {
-        for i in 0 ..< sideMenuList.count {
-            if sideMenuList[i].isSelected {
-                sideMenuList[i].isSelected = false
-                break
-            }
+        for index in 0 ..< sideMenuList.count where sideMenuList[index].isSelected {
+            sideMenuList[index].isSelected = false
+            break
         }
         sideMenuList[index].isSelected = true
         sideMenuTableView.reloadData()
-        switch sideMenuList[index].type {
-        case .home:
-            break
-        case .bookRequest:
-            let vc = BookRequestController()
-            (UIApplication.shared.keyWindow?.rootViewController as! UINavigationController).pushViewController(vc, animated: true)
-        case .notification:
-            let vc = NotificationController()
-            (UIApplication.shared.keyWindow?.rootViewController as! UINavigationController).pushViewController(vc, animated: true)
-        case .setting:
-            let vc = SettingController()
-            (UIApplication.shared.keyWindow?.rootViewController as! UINavigationController).pushViewController(vc, animated: true)
-        }
-        dismiss(animated: false, completion: nil)
+        delegate?.didSelect(
+            self,
+            menu: sideMenuList[index]
+        )
     }
 }
 
 extension SideMenuController: UITableViewDataSource, UITableViewDelegate {
-    func tableView(_: UITableView, numberOfRowsInSection _: Int) -> Int {
-        return sideMenuList.count
+    func tableView(
+        _: UITableView,
+        numberOfRowsInSection _: Int
+    ) -> Int {
+        sideMenuList.count
     }
 
-    func tableView(_ tableView: UITableView, cellForRowAt indexPath: IndexPath) -> UITableViewCell {
+    func tableView(
+        _ tableView: UITableView,
+        cellForRowAt indexPath: IndexPath
+    ) -> UITableViewCell {
         let cell = tableView.dequeueReusableCell(withIdentifier: MenuCell.cellId) as! MenuCell
         cell.setupData(data: sideMenuList[indexPath.row])
         return cell
     }
 
-    func tableView(_: UITableView, viewForHeaderInSection _: Int) -> UIView? {
-        let header = MenuHeaderCell(frame: .zero)
-        return header
+    func tableView(
+        _: UITableView,
+        viewForHeaderInSection _: Int
+    ) -> UIView? {
+        MenuHeaderCell(frame: .zero)
     }
 
-    func tableView(_: UITableView, didSelectRowAt indexPath: IndexPath) {
+    func tableView(
+        _: UITableView,
+        didSelectRowAt indexPath: IndexPath
+    ) {
         menuTapped(index: indexPath.row)
     }
 }

@@ -8,7 +8,7 @@
 
 import UIKit
 
-class BookListController: UIViewController {
+final class BookListController: UIViewController {
     private var bookListTableView: UITableView!
     private var emptyView: UIView!
     private let searchBar = UISearchBar()
@@ -41,21 +41,25 @@ class BookListController: UIViewController {
     }
 
     private func registerCells() {
-        bookListTableView.register(BookCell.self, forCellReuseIdentifier: BookCell.cellId)
+        bookListTableView.register(
+            BookCell.self,
+            forCellReuseIdentifier: BookCell.cellId
+        )
     }
 
-    @objc func addBookTapped(_: Any) {
-        let vc = AddBookController()
-        vc.delegate = self
-        let navController = UINavigationController(rootViewController: vc)
-        present(navController, animated: true, completion: nil)
+    @objc func addBookTapped() {
+        let addBookController = AddBookController()
+        addBookController.delegate = self
+        let navController = UINavigationController(rootViewController: addBookController)
+        present(navController, animated: true)
     }
 
-    @objc private func menuTapped(_: UIBarButtonItem) {
-        let vc = SideMenuController()
-        vc.modalPresentationStyle = .custom
-        vc.transitioningDelegate = sideTransitioningDelegate
-        present(vc, animated: true)
+    @objc private func menuTapped() {
+        let sideMenuController = SideMenuController()
+        sideMenuController.delegate = self
+        sideMenuController.modalPresentationStyle = .custom
+        sideMenuController.transitioningDelegate = sideTransitioningDelegate
+        present(sideMenuController, animated: true)
     }
 
     func focusSearchBar() {
@@ -64,7 +68,10 @@ class BookListController: UIViewController {
 }
 
 extension BookListController: UISearchBarDelegate {
-    func searchBar(_: UISearchBar, textDidChange searchText: String) {
+    func searchBar(
+        _: UISearchBar,
+        textDidChange searchText: String
+    ) {
         if searchText.isEmpty {
             bookList = BookManager.shared.getBooks()
         } else {
@@ -87,7 +94,7 @@ extension BookListController: UISearchBarDelegate {
 
 extension BookListController {
     private func setupView() {
-        view.backgroundColor = UIColor(hex: "#f9feff")
+        view.backgroundColor = .init(hex: 0xF9FEFF)
         title = "Books"
 
         bookListTableView = UITableView(frame: .zero)
@@ -98,11 +105,6 @@ extension BookListController {
         bookListTableView.dataSource = self
         bookListTableView.rowHeight = 95
         view.addSubview(bookListTableView)
-
-        bookListTableView.leadingAnchor.constraint(equalTo: view.safeAreaLayoutGuide.leadingAnchor).isActive = true
-        bookListTableView.trailingAnchor.constraint(equalTo: view.safeAreaLayoutGuide.trailingAnchor).isActive = true
-        bookListTableView.topAnchor.constraint(equalTo: view.safeAreaLayoutGuide.topAnchor).isActive = true
-        bookListTableView.bottomAnchor.constraint(equalTo: view.safeAreaLayoutGuide.bottomAnchor).isActive = true
 
         // Empty View
         emptyView = UIView(frame: .zero)
@@ -135,32 +137,48 @@ extension BookListController {
         addBookButton.setTitle("ADD BOOK", for: .normal)
         addBookButton.titleLabel?.font = UIFont.systemFont(ofSize: 14, weight: .medium)
         addBookButton.layer.cornerRadius = 2
-        addBookButton.addTarget(self, action: #selector(addBookTapped(_:)), for: .touchUpInside)
+        addBookButton.addTarget(self, action: #selector(addBookTapped), for: .touchUpInside)
         emptyView.addSubview(addBookButton)
 
-        emptyTitleLabel.centerXAnchor.constraint(equalTo: emptyView.centerXAnchor).isActive = true
-        emptyTitleLabel.centerYAnchor.constraint(equalTo: emptyView.centerYAnchor).isActive = true
+        NSLayoutConstraint.activate([
+            bookListTableView.leadingAnchor.constraint(equalTo: view.safeLeadingAnchor),
+            bookListTableView.trailingAnchor.constraint(equalTo: view.safeTrailingAnchor),
+            bookListTableView.topAnchor.constraint(equalTo: view.safeTopAnchor),
+            bookListTableView.bottomAnchor.constraint(equalTo: view.safeBottomAnchor),
 
-        emptyImageView.bottomAnchor.constraint(equalTo: emptyTitleLabel.topAnchor, constant: -20).isActive = true
-        emptyImageView.centerXAnchor.constraint(equalTo: emptyView.centerXAnchor).isActive = true
-        emptyImageView.heightAnchor.constraint(equalToConstant: 150).isActive = true
-        emptyImageView.widthAnchor.constraint(equalToConstant: 150).isActive = true
+            emptyTitleLabel.centerXAnchor.constraint(equalTo: emptyView.centerXAnchor),
+            emptyTitleLabel.centerYAnchor.constraint(equalTo: emptyView.centerYAnchor),
 
-        emptyInfoLabel.leadingAnchor.constraint(equalTo: emptyView.leadingAnchor, constant: 40).isActive = true
-        emptyInfoLabel.trailingAnchor.constraint(equalTo: emptyView.trailingAnchor, constant: -40).isActive = true
-        emptyInfoLabel.topAnchor.constraint(equalTo: emptyTitleLabel.bottomAnchor, constant: 15).isActive = true
+            emptyImageView.bottomAnchor.constraint(equalTo: emptyTitleLabel.topAnchor, constant: -20),
+            emptyImageView.centerXAnchor.constraint(equalTo: emptyView.centerXAnchor),
+            emptyImageView.heightAnchor.constraint(equalToConstant: 150),
+            emptyImageView.widthAnchor.constraint(equalToConstant: 150),
 
-        addBookButton.leadingAnchor.constraint(equalTo: emptyView.leadingAnchor, constant: 40).isActive = true
-        addBookButton.trailingAnchor.constraint(equalTo: emptyView.trailingAnchor, constant: -40).isActive = true
-        addBookButton.bottomAnchor.constraint(equalTo: emptyView.bottomAnchor, constant: -20).isActive = true
-        addBookButton.heightAnchor.constraint(equalToConstant: 50).isActive = true
+            emptyInfoLabel.leadingAnchor.constraint(equalTo: emptyView.leadingAnchor, constant: 40),
+            emptyInfoLabel.trailingAnchor.constraint(equalTo: emptyView.trailingAnchor, constant: -40),
+            emptyInfoLabel.topAnchor.constraint(equalTo: emptyTitleLabel.bottomAnchor, constant: 15),
+
+            addBookButton.leadingAnchor.constraint(equalTo: emptyView.leadingAnchor, constant: 40),
+            addBookButton.trailingAnchor.constraint(equalTo: emptyView.trailingAnchor, constant: -40),
+            addBookButton.bottomAnchor.constraint(equalTo: emptyView.bottomAnchor, constant: -20),
+            addBookButton.heightAnchor.constraint(equalToConstant: 50)
+        ])
     }
 
     private func setupToolBar() {
-        let addToolbarItem = UIBarButtonItem(barButtonSystemItem: .add, target: self, action: #selector(addBookTapped))
+        let addToolbarItem = UIBarButtonItem(
+            barButtonSystemItem: .add,
+            target: self,
+            action: #selector(addBookTapped)
+        )
         navigationItem.rightBarButtonItem = addToolbarItem
 
-        let menuToolbarItem = UIBarButtonItem(image: .menu, style: .plain, target: self, action: #selector(menuTapped))
+        let menuToolbarItem = UIBarButtonItem(
+            image: .menu,
+            style: .plain,
+            target: self,
+            action: #selector(menuTapped)
+        )
         navigationItem.leftBarButtonItem = menuToolbarItem
     }
 
@@ -171,49 +189,69 @@ extension BookListController {
     }
 
     private func confirmDelete(indexPath: IndexPath) {
-        let alert = UIAlertController(title: "CONFIRMATION", message: "Are you sure want to delete?", preferredStyle: .alert)
-        let deleteAction = UIAlertAction(title: "Delete", style: .destructive, handler: { [weak self] _ in
-            let id = self?.bookList[indexPath.row].id
-            self?.bookList.remove(at: indexPath.row)
-            self?.bookListTableView.deleteRows(at: [indexPath], with: UITableView.RowAnimation.fade)
+        let alert = UIAlertController(
+            title: "CONFIRMATION",
+            message: "Are you sure want to delete?",
+            preferredStyle: .alert
+        )
+        let deleteAction = UIAlertAction(
+            title: "Delete",
+            style: .destructive
+        ) { [weak self] _ in
+            guard let self else { return }
+            self.bookList.remove(at: indexPath.row)
+            self.bookListTableView.deleteRows(
+                at: [indexPath],
+                with: UITableView.RowAnimation.fade
+            )
 
-            if let removedId = id {
-                do {
-                    try BookManager.shared.deleteBook(id: removedId)
-                } catch {
-                    self?.showAlert(error.localizedDescription)
-                }
+            do {
+                try BookManager.shared.deleteBook(id: self.bookList[indexPath.row].id)
+            } catch {
+                self.showAlert(error.localizedDescription)
             }
-        })
-        let cancelAction = UIAlertAction(title: "Cancel", style: .cancel, handler: nil)
+        }
+        let cancelAction = UIAlertAction(
+            title: "Cancel",
+            style: .cancel
+        )
 
         alert.addAction(deleteAction)
         alert.addAction(cancelAction)
-        present(alert, animated: true, completion: nil)
+        present(alert, animated: true)
     }
 
     private func editBook(book: Book) {
-        let vc = AddBookController()
-        vc.initializeData(book)
-        vc.delegate = self
-        let navController = UINavigationController(rootViewController: vc)
-        present(navController, animated: true, completion: nil)
+        let viewController = AddBookController()
+        viewController.initializeData(book)
+        viewController.delegate = self
+        let navController = UINavigationController(rootViewController: viewController)
+        present(navController, animated: true)
     }
 }
 
 extension BookListController: UITableViewDelegate, UITableViewDataSource {
-    func tableView(_ tableView: UITableView, numberOfRowsInSection _: Int) -> Int {
+    func tableView(
+        _ tableView: UITableView,
+        numberOfRowsInSection _: Int
+    ) -> Int {
         tableView.backgroundView = bookList.count == 0 ? emptyView : nil
         return bookList.count
     }
 
-    func tableView(_ tableView: UITableView, cellForRowAt indexPath: IndexPath) -> UITableViewCell {
+    func tableView(
+        _ tableView: UITableView,
+        cellForRowAt indexPath: IndexPath
+    ) -> UITableViewCell {
         let cell = tableView.dequeueReusableCell(withIdentifier: BookCell.cellId) as! BookCell
         cell.setupData(data: bookList[indexPath.row])
         return cell
     }
 
-    func tableView(_: UITableView, didSelectRowAt indexPath: IndexPath) {
+    func tableView(
+        _: UITableView,
+        didSelectRowAt indexPath: IndexPath
+    ) {
         let vc = BookDetailController()
         vc.initializeData(bookList[indexPath.row])
         navigationController?.pushViewController(vc, animated: true)
@@ -229,12 +267,18 @@ extension BookListController: UITableViewDelegate, UITableViewDataSource {
     ) -> UISwipeActionsConfiguration? {
         UISwipeActionsConfiguration(
             actions: [
-                .init(style: .normal, title: "Edit") {[weak self] action, view, handler in
+                .init(
+                    style: .normal,
+                    title: "Edit"
+                ) {[weak self] action, view, handler in
                     if let book = self?.bookList[indexPath.row] {
                         self?.editBook(book: book)
                     }
                 },
-                .init(style: .destructive, title: "Delete") {[weak self] action, view, handler in
+                .init(
+                    style: .destructive,
+                    title: "Delete"
+                ) {[weak self] action, view, handler in
                     self?.confirmDelete(indexPath: indexPath)
                 }
             ]
@@ -267,15 +311,36 @@ extension BookListController: AddBookControllerDelegate {
 extension BookListController: BookDetailPreviewingDelegate {
     func bookDetailController(didSelect action: UIPreviewAction, item: Book) {
         switch action.title {
-        case "Edit":
-            editBook(book: item)
-        case "Delete":
-            guard let bookListIndex: Int = bookList.firstIndex(where: { $0.id == item.id }) else { return }
-            bookList.remove(at: bookListIndex)
-            try? BookManager.shared.deleteBook(id: item.id)
-            bookListTableView.deleteRows(at: [IndexPath(row: bookListIndex, section: 0)], with: .fade)
-        default:
-            break
+            case "Edit":
+                editBook(book: item)
+            case "Delete":
+                guard let bookListIndex: Int = bookList.firstIndex(where: { $0.id == item.id }) else { return }
+                bookList.remove(at: bookListIndex)
+                try? BookManager.shared.deleteBook(id: item.id)
+                bookListTableView.deleteRows(
+                    at: [IndexPath(row: bookListIndex, section: 0)],
+                    with: .fade
+                )
+            default:
+                break
         }
+    }
+}
+
+extension BookListController: SideMenuDelegate {
+    func didSelect(_ controller: SideMenuController, menu: SideMenu) {
+        if menu.type == .home { return }
+        let viewController = switch menu.type {
+        case .bookRequest: BookRequestController()
+        case .notification: NotificationController()
+        case .setting: SettingController()
+        default: fatalError("This menu selection is not handled")
+        }
+
+        navigationController?.pushViewController(
+            viewController,
+            animated: true
+        )
+        dismiss(animated: false)
     }
 }

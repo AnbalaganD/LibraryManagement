@@ -8,7 +8,7 @@
 
 import UIKit
 
-class BookCell: UITableViewCell {
+final class BookCell: UITableViewCell {
     static let cellId = "BookCell"
 
     private var coverImageView: UIImageView!
@@ -122,7 +122,7 @@ extension BookCell {
         descriptionLabel = UILabel(frame: .zero)
         descriptionLabel.translatesAutoresizingMaskIntoConstraints = false
         descriptionLabel.numberOfLines = 0
-        descriptionLabel.textColor = UIColor(hex: "#444444")
+        descriptionLabel.textColor = UIColor(hex: 0x444444)
         descriptionLabel.font = UIFont.systemFont(ofSize: 14, weight: .regular)
         baseView.addSubview(descriptionLabel)
 

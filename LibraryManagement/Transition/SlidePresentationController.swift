@@ -8,11 +8,17 @@
 
 import UIKit
 
-class SlidePresentationController: UIPresentationController {
+final class SlidePresentationController: UIPresentationController {
     private var dimmingView: UIView!
 
-    override init(presentedViewController: UIViewController, presenting presentingViewController: UIViewController?) {
-        super.init(presentedViewController: presentedViewController, presenting: presentingViewController)
+    override init(
+        presentedViewController: UIViewController,
+        presenting presentingViewController: UIViewController?
+    ) {
+        super.init(
+            presentedViewController: presentedViewController,
+            presenting: presentingViewController
+        )
         setupDimmingView()
     }
 
@@ -20,9 +26,22 @@ class SlidePresentationController: UIPresentationController {
         containerView?.insertSubview(dimmingView, at: 0)
 
         NSLayoutConstraint.activate(
-            NSLayoutConstraint.constraints(withVisualFormat: "H:|[dimmingView]|", options: [], metrics: nil, views: ["dimmingView": dimmingView!]))
-        NSLayoutConstraint.activate(
-            NSLayoutConstraint.constraints(withVisualFormat: "V:|[dimmingView]|", options: [], metrics: nil, views: ["dimmingView": dimmingView!]))
+            NSLayoutConstraint.constraints(
+                withVisualFormat: "H:|[dimmingView]|",
+                options: [],
+                metrics: nil,
+                views: ["dimmingView": dimmingView!]
+            )
+
+            +
+
+            NSLayoutConstraint.constraints(
+                withVisualFormat: "V:|[dimmingView]|",
+                options: [],
+                metrics: nil,
+                views: ["dimmingView": dimmingView!]
+            )
+        )
 
         guard let coordinator = presentedViewController.transitionCoordinator else {
             dimmingView.alpha = 1.0
@@ -47,17 +66,22 @@ class SlidePresentationController: UIPresentationController {
 
     override var frameOfPresentedViewInContainerView: CGRect {
         var rect: CGRect = .zero
-        rect.size = size(forChildContentContainer: presentingViewController, withParentContainerSize: containerView!.bounds.size)
+        rect.size = size(
+            forChildContentContainer: presentingViewController,
+            withParentContainerSize: containerView!.bounds.size
+        )
         return rect
     }
 
-    override func size(forChildContentContainer _: UIContentContainer, withParentContainerSize parentSize: CGSize) -> CGSize {
+    override func size(
+        forChildContentContainer _: UIContentContainer,
+        withParentContainerSize parentSize: CGSize
+    ) -> CGSize {
         let width = min(parentSize.width, parentSize.height) * (2.5 / 3.0)
-        return CGSize(width: width, height: parentSize.height)
-    }
-
-    override func traitCollectionDidChange(_ previousTraitCollection: UITraitCollection?) {
-        super.traitCollectionDidChange(previousTraitCollection)
+        return CGSize(
+            width: width,
+            height: parentSize.height
+        )
     }
 }
 
@@ -68,7 +92,10 @@ extension SlidePresentationController {
         dimmingView.backgroundColor = UIColor(white: 0.0, alpha: 0.15)
         dimmingView.alpha = 0.0
 
-        let tapGesture = UITapGestureRecognizer(target: self, action: #selector(handleDimmingViewTapped))
+        let tapGesture = UITapGestureRecognizer(
+            target: self,
+            action: #selector(handleDimmingViewTapped)
+        )
         dimmingView.addGestureRecognizer(tapGesture)
     }
 

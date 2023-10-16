@@ -8,7 +8,7 @@
 
 import Foundation
 
-struct Constants {
+enum Constants {
     static let appName = Bundle.main.infoDictionary!["CFBundleName"] as! String
 
     enum Message {
