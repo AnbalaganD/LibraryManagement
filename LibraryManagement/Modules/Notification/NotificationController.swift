@@ -92,7 +92,7 @@ extension NotificationController: UITableViewDataSource {
     ) -> UITableViewCell {
         let cell = tableView.dequeueReusableCell(
             withIdentifier: NotificationCell.cellId
-        ) as! NotificationCell
+        ) as! NotificationCell // swiftlint:disable:this force_cast 
         cell.setupData(data: NotificationManager.shared.getNotification()[indexPath.row])
         return cell
     }

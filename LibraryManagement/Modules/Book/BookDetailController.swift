@@ -19,7 +19,6 @@ final class BookDetailController: UIViewController {
 
     override func viewDidLoad() {
         super.viewDidLoad()
-//        navigationController?.navigationBar.isTranslucent = false
         setupView()
         setupData()
     }
@@ -57,6 +56,7 @@ final class BookDetailController: UIViewController {
 }
 
 extension BookDetailController {
+    // swiftlint:disable:next function_body_length
     private func setupView() {
         view.backgroundColor = .systemBackground
         title = "Book Detail"

@@ -52,6 +52,7 @@ final class SettingController: UIViewController {
 }
 
 extension SettingController {
+    // swiftlint:disable:next function_body_length
     private func setupView() {
         view.backgroundColor = UIColor(dynamicProvider: { traits in
             traits.userInterfaceStyle == .dark ? .systemBackground: .init(hex: 0xFAFDFD)

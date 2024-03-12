@@ -239,7 +239,7 @@ extension BookListController: UITableViewDelegate, UITableViewDataSource {
         _ tableView: UITableView,
         cellForRowAt indexPath: IndexPath
     ) -> UITableViewCell {
-        let cell = tableView.dequeueReusableCell(withIdentifier: BookCell.cellId) as! BookCell
+        let cell = tableView.dequeueReusableCell(withIdentifier: BookCell.cellId) as! BookCell // swiftlint:disable:this force_cast
         cell.setupData(data: bookList[indexPath.row])
         return cell
     }
@@ -248,9 +248,9 @@ extension BookListController: UITableViewDelegate, UITableViewDataSource {
         _: UITableView,
         didSelectRowAt indexPath: IndexPath
     ) {
-        let vc = BookDetailController()
-        vc.initializeData(bookList[indexPath.row])
-        navigationController?.pushViewController(vc, animated: true)
+        let viewController = BookDetailController()
+        viewController.initializeData(bookList[indexPath.row])
+        navigationController?.pushViewController(viewController, animated: true)
     }
 
     func tableView(_: UITableView, canEditRowAt _: IndexPath) -> Bool {
@@ -313,13 +313,13 @@ extension BookListController: UITableViewDelegate, UITableViewDataSource {
 
 extension BookListController: AddBookControllerDelegate {
     func onUpdate(book: Book?) {
-        if let b = book {
-            let index: Int? = bookList.firstIndex { $0.id == b.id }
+        if let book {
+            let index: Int? = bookList.firstIndex { $0.id == book.id }
 
             if let bookListIndex = index {
-                bookList[bookListIndex] = b
+                bookList[bookListIndex] = book
                 do {
-                    try BookManager.shared.updateBook(book: b)
+                    try BookManager.shared.updateBook(book: book)
                     bookListTableView.reloadRows(
                         at: [.init(row: bookListIndex, section: 0)],
                         with: .automatic
@@ -328,8 +328,8 @@ extension BookListController: AddBookControllerDelegate {
                     showAlert(error.rawValue)
                 } catch {}
             } else {
-                bookList.append(b)
-                BookManager.shared.addBook(book: b)
+                bookList.append(book)
+                BookManager.shared.addBook(book: book)
                 bookListTableView.insertRows(
                     at: [.init(row: bookList.count - 1, section: 0)],
                     with: .automatic

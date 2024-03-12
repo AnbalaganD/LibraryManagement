@@ -116,7 +116,7 @@ extension SideMenuController: UITableViewDataSource, UITableViewDelegate {
         _ tableView: UITableView,
         cellForRowAt indexPath: IndexPath
     ) -> UITableViewCell {
-        let cell = tableView.dequeueReusableCell(withIdentifier: MenuCell.cellId) as! MenuCell
+        let cell = tableView.dequeueReusableCell(withIdentifier: MenuCell.cellId) as! MenuCell // swiftlint:disable:this force_cast 
         cell.setupData(data: sideMenuList[indexPath.row])
         return cell
     }

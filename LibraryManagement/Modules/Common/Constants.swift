@@ -9,7 +9,7 @@
 import Foundation
 
 enum Constants {
-    static let appName = Bundle.main.infoDictionary!["CFBundleName"] as! String
+    static let appName = Bundle.main.infoDictionary!["CFBundleName"] as! String // swiftlint:disable:this force_cast 
 
     enum Message {
         static let commonErrorMgs = "Something went wrong please try again"

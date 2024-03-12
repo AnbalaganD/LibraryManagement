@@ -79,7 +79,7 @@ extension BookRequestController: UITableViewDataSource {
     ) -> UITableViewCell {
         let cell = tableView.dequeueReusableCell(
             withIdentifier: BookRequsetCell.cellId
-        ) as! BookRequsetCell
+        ) as! BookRequsetCell // swiftlint:disable:this force_cast 
         cell.setupData(data: BookManager.shared.getBookRequest()[indexPath.row])
         cell.delegate = self
         return cell

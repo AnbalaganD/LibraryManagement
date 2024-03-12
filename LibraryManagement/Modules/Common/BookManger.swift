@@ -92,7 +92,7 @@ final class BookManager {
 
         bookRequestList[rIndex].status = status
         if status == .accept {
-            bookList[updateIndex].stock = bookList[updateIndex].stock - 1
+            bookList[updateIndex].stock -= 1
         }
     }
 
@@ -121,7 +121,7 @@ final class BookManager {
                 name: "Kotlin for Android",
                 author:
                     "Andrey Breslav",
-                description: "Kotlin is a great fit for developing Android applications, bringing all of the advantages of a modern language to the Android platform without introducing any new restrictions",
+                description: "Kotlin is ideal for Android app development, offering modern language benefits without additional constraints.",
                 coverImage: "kotlin",
                 stock: 0
             ),
