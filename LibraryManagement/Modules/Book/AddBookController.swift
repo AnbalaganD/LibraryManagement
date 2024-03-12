@@ -110,7 +110,7 @@ final class AddBookController: UIViewController {
     }
 
     @objc private func cancelTapped(_: UIBarButtonItem) {
-        dismiss(animated: true, completion: nil)
+        dismiss(animated: true)
     }
 
     @objc private func doneTapped(_: UIBarButtonItem) {
@@ -130,7 +130,7 @@ final class AddBookController: UIViewController {
 
         delegate?.onUpdate(book: book)
         view.endEditing(true)
-        dismiss(animated: true, completion: nil)
+        dismiss(animated: true)
     }
 
     private func isValidData() -> Bool {
@@ -210,7 +210,7 @@ extension AddBookController: UIImagePickerControllerDelegate, UINavigationContro
         _ picker: UIImagePickerController,
         didFinishPickingMediaWithInfo info: [UIImagePickerController.InfoKey: Any]
     ) {
-        picker.dismiss(animated: true, completion: nil)
+        picker.dismiss(animated: true)
         coverImageView.image = info[.originalImage] as? UIImage
         coverImageUrl = (info[.imageURL] as? URL)?.absoluteString
     }

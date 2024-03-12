@@ -107,15 +107,10 @@ extension AddBookRequestController {
         bookNameTextView.rightViewMode = .always
         let rightView = UIView(frame: CGRect(x: 0, y: 0, width: 40, height: 40))
         rightView.isUserInteractionEnabled = false
-        let dropDownImageView = UIImageView(frame: .zero)
-        dropDownImageView.translatesAutoresizingMaskIntoConstraints = false
-        dropDownImageView.image = .dropDown
+        let dropDownImageView = UIImageView(frame: CGRect(x: 8, y: 8, width: 24, height: 24))
+        dropDownImageView.image = UIImage(systemName: "chevron.down")
+        dropDownImageView.contentMode = .scaleAspectFit
         rightView.addSubview(dropDownImageView)
-
-        dropDownImageView.centerXAnchor.constraint(equalTo: rightView.centerXAnchor).isActive = true
-        dropDownImageView.centerYAnchor.constraint(equalTo: rightView.centerYAnchor).isActive = true
-        dropDownImageView.widthAnchor.constraint(equalToConstant: 15).isActive = true
-        dropDownImageView.heightAnchor.constraint(equalToConstant: 15).isActive = true
 
         bookNameTextView.rightView = rightView
 

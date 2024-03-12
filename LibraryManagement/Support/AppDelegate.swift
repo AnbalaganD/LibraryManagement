@@ -53,7 +53,7 @@ final class AppDelegate: UIResponder, UIApplicationDelegate {
                 if let navController = window?.rootViewController as? UINavigationController {
                     if let bookListController = navController.viewControllers.first(where: { $0 is BookListController }) as? BookListController {
                         if bookListController.presentedViewController != nil {
-                            bookListController.presentedViewController?.dismiss(animated: false, completion: nil)
+                            bookListController.presentedViewController?.dismiss(animated: false)
                         }
                         bookListController.addBookTapped()
                     }
