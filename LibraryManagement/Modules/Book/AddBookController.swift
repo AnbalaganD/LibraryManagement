@@ -50,14 +50,14 @@ final class AddBookController: UIViewController {
     }
 
     private func setupData(_ book: Book?) {
-        if let b = book {
-            bookNameTextField.text = b.name
-            authorTextFeild.text = b.author
-            stockTextFeild.text = "\(b.stock)"
-            descriptionTextView.text = b.description
+        if let book {
+            bookNameTextField.text = book.name
+            authorTextFeild.text = book.author
+            stockTextFeild.text = "\(book.stock)"
+            descriptionTextView.text = book.description
 
-            guard let url = URL(string: b.coverImage), let imageData = try? Data(contentsOf: url) else {
-                coverImageView.image = UIImage(named: b.coverImage)
+            guard let url = URL(string: book.coverImage), let imageData = try? Data(contentsOf: url) else {
+                coverImageView.image = UIImage(named: book.coverImage)
                 return
             }
             coverImageView.image = UIImage(data: imageData)
@@ -217,6 +217,7 @@ extension AddBookController: UIImagePickerControllerDelegate, UINavigationContro
 }
 
 extension AddBookController {
+    // swiftlint:disable:next function_body_length
     private func setupView() {
         view.backgroundColor = .systemBackground
 

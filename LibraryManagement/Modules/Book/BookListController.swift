@@ -25,10 +25,6 @@ final class BookListController: UIViewController {
         bookListTableView.reloadData()
     }
 
-    override func viewWillDisappear(_ animated: Bool) {
-        super.viewWillDisappear(animated)
-    }
-
     override func viewWillAppear(_ animated: Bool) {
         super.viewWillAppear(animated)
         DispatchQueue.main.asyncAfter(deadline: .now() + 0.05) {
@@ -266,7 +262,7 @@ extension BookListController: UITableViewDelegate, UITableViewDataSource {
                 .init(
                     style: .normal,
                     title: "Edit"
-                ) {[weak self] action, view, handler in
+                ) {[weak self] _, _, handler in
                     if let book = self?.bookList[indexPath.row] {
                         self?.editBook(book: book)
                         handler(true)
@@ -275,7 +271,7 @@ extension BookListController: UITableViewDelegate, UITableViewDataSource {
                 .init(
                     style: .destructive,
                     title: "Delete"
-                ) {[weak self] action, view, handler in
+                ) {[weak self] _, _, handler in
                     self?.confirmDelete(indexPath: indexPath)
                     handler(true)
                 }
@@ -291,16 +287,16 @@ extension BookListController: UITableViewDelegate, UITableViewDataSource {
         UIContextMenuConfiguration(
             identifier: nil,
             previewProvider: nil
-        ) { item in
+        ) { _ in
             UIMenu(
                 title: "Action",
                 children: [
-                    UIAction(title: "Edit") {[weak self] action in
+                    UIAction(title: "Edit") {[weak self] _ in
                         if let book = self?.bookList[indexPath.row] {
                             self?.editBook(book: book)
                         }
                     },
-                    UIAction(title: "Delete", attributes: .destructive) {[weak self] action in
+                    UIAction(title: "Delete", attributes: .destructive) {[weak self] _ in
                         if self?.bookList[indexPath.row] != nil {
                             self?.confirmDelete(indexPath: indexPath)
                         }
