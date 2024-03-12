@@ -8,13 +8,6 @@
 
 import UIKit
 
-protocol BookDetailPreviewingDelegate: AnyObject {
-    func bookDetailController(
-        didSelect action: UIPreviewAction,
-        item: Book
-    )
-}
-
 final class BookDetailController: UIViewController {
     private var coverImageView: UIImageView!
     private var bookNameLabel: UILabel!
@@ -24,11 +17,9 @@ final class BookDetailController: UIViewController {
 
     private var book: Book!
 
-    weak var delegate: BookDetailPreviewingDelegate?
-
     override func viewDidLoad() {
         super.viewDidLoad()
-        navigationController?.navigationBar.isTranslucent = false
+//        navigationController?.navigationBar.isTranslucent = false
         setupView()
         setupData()
     }
@@ -63,37 +54,11 @@ final class BookDetailController: UIViewController {
             }
         }
     }
-
-    override var previewActionItems: [UIPreviewActionItem] {
-        let deleteAction = UIPreviewAction(
-            title: "Delete",
-            style: .destructive
-        ) { [weak self] action, _ in
-            guard let self = self else { return }
-            self.delegate?.bookDetailController(
-                didSelect: action,
-                item: self.book
-            )
-        }
-
-        let editAction = UIPreviewAction(
-            title: "Edit",
-            style: .default
-        ) {[weak self] action, _ in
-            guard let self = self else { return }
-            self.delegate?.bookDetailController(
-                didSelect: action,
-                item: self.book
-            )
-        }
-
-        return [editAction, deleteAction]
-    }
 }
 
 extension BookDetailController {
     private func setupView() {
-        view.backgroundColor = .white
+        view.backgroundColor = .systemBackground
         title = "Book Detail"
 
         let scrollView = UIScrollView(frame: .zero)

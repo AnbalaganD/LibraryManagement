@@ -29,12 +29,12 @@ final class SideMenuController: UIViewController {
 
 extension SideMenuController {
     private func setupView() {
-        view.backgroundColor = .white
+        view.backgroundColor = .systemBackground
 
         sideMenuTableView = UITableView(frame: .zero)
         sideMenuTableView.translatesAutoresizingMaskIntoConstraints = false
         sideMenuTableView.separatorStyle = .none
-        sideMenuTableView.backgroundColor = .white
+        sideMenuTableView.backgroundColor = .systemBackground
         sideMenuTableView.rowHeight = 50
         sideMenuTableView.sectionHeaderHeight = 100
         sideMenuTableView.dataSource = self

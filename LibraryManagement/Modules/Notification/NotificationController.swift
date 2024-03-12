@@ -29,7 +29,9 @@ final class NotificationController: UIViewController {
 
 extension NotificationController {
     private func setupView() {
-        view.backgroundColor = .init(hex: 0xF9FEFF)
+        view.backgroundColor = UIColor(dynamicProvider: { traits in
+            traits.userInterfaceStyle == .dark ? .systemBackground: .init(hex: 0xF9FEFF)
+        })
         title = "Notification"
 
         notificationTableView = UITableView(frame: .zero)

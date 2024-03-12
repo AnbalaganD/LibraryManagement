@@ -69,11 +69,11 @@ final class BookRequsetCell: UITableViewCell {
         }
     }
 
-    @objc private func rejectTapped(_: UIButton) {
+    @objc private func rejectTapped() {
         delegate?.rejectRequest(request: data)
     }
 
-    @objc private func issueTapped(_: UIButton) {
+    @objc private func issueTapped() {
         delegate?.issueBook(request: data)
     }
 }
@@ -85,18 +85,18 @@ extension BookRequsetCell {
 
         let baseView = ShadowView(frame: .zero)
         baseView.translatesAutoresizingMaskIntoConstraints = false
-        baseView.backgroundColor = .white
+        baseView.backgroundColor = .systemBackground
         baseView.shadowColor = UIColor(white: 0, alpha: 0.35)
         baseView.shadowRadius = 2.0
         baseView.dx = 1.0
         baseView.dy = 1.0
         baseView.shadowOpacity = 0.3
-        addSubview(baseView)
+        contentView.addSubview(baseView)
 
-        baseView.trailingAnchor.constraint(equalTo: trailingAnchor, constant: -8).isActive = true
-        baseView.leadingAnchor.constraint(equalTo: leadingAnchor, constant: 8).isActive = true
-        baseView.topAnchor.constraint(equalTo: topAnchor, constant: 4).isActive = true
-        baseView.bottomAnchor.constraint(equalTo: bottomAnchor, constant: -4).isActive = true
+        baseView.trailingAnchor.constraint(equalTo: contentView.trailingAnchor, constant: -8).isActive = true
+        baseView.leadingAnchor.constraint(equalTo: contentView.leadingAnchor, constant: 8).isActive = true
+        baseView.topAnchor.constraint(equalTo: contentView.topAnchor, constant: 4).isActive = true
+        baseView.bottomAnchor.constraint(equalTo: contentView.bottomAnchor, constant: -4).isActive = true
 
         userNameLabel = UILabel(frame: .zero)
         userNameLabel.translatesAutoresizingMaskIntoConstraints = false
@@ -137,7 +137,7 @@ extension BookRequsetCell {
         issueButton.setTitle("   Issue   ", for: .normal)
         issueButton.titleLabel?.font = .systemFont(ofSize: 13, weight: .medium)
         issueButton.layer.cornerRadius = 3
-        issueButton.addTarget(self, action: #selector(issueTapped(_:)), for: .touchUpInside)
+        issueButton.addTarget(self, action: #selector(issueTapped), for: .touchUpInside)
         baseView.addSubview(issueButton)
 
         issueButton.trailingAnchor.constraint(equalTo: baseView.trailingAnchor, constant: -10).isActive = true
@@ -150,7 +150,7 @@ extension BookRequsetCell {
         rejectButton.setTitle("   Reject   ", for: .normal)
         rejectButton.titleLabel?.font = .systemFont(ofSize: 13, weight: .medium)
         rejectButton.layer.cornerRadius = 3
-        rejectButton.addTarget(self, action: #selector(rejectTapped(_:)), for: .touchUpInside)
+        rejectButton.addTarget(self, action: #selector(rejectTapped), for: .touchUpInside)
         baseView.addSubview(rejectButton)
 
         rejectButton.trailingAnchor.constraint(equalTo: issueButton.leadingAnchor, constant: -5).isActive = true

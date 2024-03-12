@@ -53,7 +53,9 @@ final class SettingController: UIViewController {
 
 extension SettingController {
     private func setupView() {
-        view.backgroundColor = .init(hex: 0xFAFDFD)
+        view.backgroundColor = UIColor(dynamicProvider: { traits in
+            traits.userInterfaceStyle == .dark ? .systemBackground: .init(hex: 0xFAFDFD)
+        })
         title = "Settings"
 
         let userImageView = UIImageView(frame: .zero)
@@ -92,7 +94,7 @@ extension SettingController {
 
         let notificationContainerView = ShadowView(frame: .zero)
         notificationContainerView.translatesAutoresizingMaskIntoConstraints = false
-        notificationContainerView.backgroundColor = .white
+        notificationContainerView.backgroundColor = .systemBackground
         notificationContainerView.shadowColor = UIColor(white: 0, alpha: 0.35)
         notificationContainerView.shadowRadius = 3.0
         notificationContainerView.dx = 1.0
@@ -137,7 +139,7 @@ extension SettingController {
 
         let logoutContainerView = ShadowView(frame: .zero)
         logoutContainerView.translatesAutoresizingMaskIntoConstraints = false
-        logoutContainerView.backgroundColor = .white
+        logoutContainerView.backgroundColor = .systemBackground
         logoutContainerView.shadowColor = UIColor(white: 0, alpha: 0.35)
         logoutContainerView.shadowRadius = 3.0
         logoutContainerView.dx = 1.0

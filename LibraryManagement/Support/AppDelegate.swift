@@ -35,7 +35,6 @@ final class AppDelegate: UIResponder, UIApplicationDelegate {
 
         window?.makeKeyAndVisible()
         window?.tintColor = .orange
-        window?.backgroundColor = .white
         return true
     }
 

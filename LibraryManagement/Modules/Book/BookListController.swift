@@ -27,9 +27,6 @@ final class BookListController: UIViewController {
 
     override func viewWillDisappear(_ animated: Bool) {
         super.viewWillDisappear(animated)
-        navigationController?.navigationBar.isTranslucent = false
-        navigationController?.view.setNeedsLayout()
-        navigationController?.view.layoutIfNeeded()
     }
 
     override func viewWillAppear(_ animated: Bool) {
@@ -37,7 +34,6 @@ final class BookListController: UIViewController {
         DispatchQueue.main.asyncAfter(deadline: .now() + 0.05) {
             self.searchBar(self.searchBar, textDidChange: self.searchBar.text ?? "")
         }
-        navigationController?.navigationBar.isTranslucent = true
     }
 
     private func registerCells() {
@@ -94,7 +90,7 @@ extension BookListController: UISearchBarDelegate {
 
 extension BookListController {
     private func setupView() {
-        view.backgroundColor = .init(hex: 0xF9FEFF)
+        view.backgroundColor = .systemBackground
         title = "Books"
 
         bookListTableView = UITableView(frame: .zero)
@@ -104,6 +100,7 @@ extension BookListController {
         bookListTableView.delegate = self
         bookListTableView.dataSource = self
         bookListTableView.rowHeight = 95
+        bookListTableView.keyboardDismissMode = .onDrag
         view.addSubview(bookListTableView)
 
         // Empty View
@@ -199,14 +196,13 @@ extension BookListController {
             style: .destructive
         ) { [weak self] _ in
             guard let self else { return }
-            self.bookList.remove(at: indexPath.row)
-            self.bookListTableView.deleteRows(
-                at: [indexPath],
-                with: UITableView.RowAnimation.fade
-            )
-
             do {
                 try BookManager.shared.deleteBook(id: self.bookList[indexPath.row].id)
+                self.bookList.remove(at: indexPath.row)
+                self.bookListTableView.deleteRows(
+                    at: [indexPath],
+                    with: UITableView.RowAnimation.fade
+                )
             } catch {
                 self.showAlert(error.localizedDescription)
             }
@@ -273,6 +269,7 @@ extension BookListController: UITableViewDelegate, UITableViewDataSource {
                 ) {[weak self] action, view, handler in
                     if let book = self?.bookList[indexPath.row] {
                         self?.editBook(book: book)
+                        handler(true)
                     }
                 },
                 .init(
@@ -280,9 +277,37 @@ extension BookListController: UITableViewDelegate, UITableViewDataSource {
                     title: "Delete"
                 ) {[weak self] action, view, handler in
                     self?.confirmDelete(indexPath: indexPath)
+                    handler(true)
                 }
             ]
         )
+    }
+    
+    func tableView(
+        _ tableView: UITableView,
+        contextMenuConfigurationForRowAt indexPath: IndexPath,
+        point: CGPoint
+    ) -> UIContextMenuConfiguration? {
+        UIContextMenuConfiguration(
+            identifier: nil,
+            previewProvider: nil
+        ) { item in
+            UIMenu(
+                title: "Action",
+                children: [
+                    UIAction(title: "Edit") {[weak self] action in
+                        if let book = self?.bookList[indexPath.row] {
+                            self?.editBook(book: book)
+                        }
+                    },
+                    UIAction(title: "Delete", attributes: .destructive) {[weak self] action in
+                        if self?.bookList[indexPath.row] != nil {
+                            self?.confirmDelete(indexPath: indexPath)
+                        }
+                    }
+                ]
+            )
+        }
     }
 }
 
@@ -295,34 +320,21 @@ extension BookListController: AddBookControllerDelegate {
                 bookList[bookListIndex] = b
                 do {
                     try BookManager.shared.updateBook(book: b)
+                    bookListTableView.reloadRows(
+                        at: [.init(row: bookListIndex, section: 0)],
+                        with: .automatic
+                    )
                 } catch let error as BookMangerError {
                     showAlert(error.rawValue)
                 } catch {}
             } else {
                 bookList.append(b)
                 BookManager.shared.addBook(book: b)
-            }
-
-            bookListTableView.reloadData()
-        }
-    }
-}
-
-extension BookListController: BookDetailPreviewingDelegate {
-    func bookDetailController(didSelect action: UIPreviewAction, item: Book) {
-        switch action.title {
-            case "Edit":
-                editBook(book: item)
-            case "Delete":
-                guard let bookListIndex: Int = bookList.firstIndex(where: { $0.id == item.id }) else { return }
-                bookList.remove(at: bookListIndex)
-                try? BookManager.shared.deleteBook(id: item.id)
-                bookListTableView.deleteRows(
-                    at: [IndexPath(row: bookListIndex, section: 0)],
-                    with: .fade
+                bookListTableView.insertRows(
+                    at: [.init(row: bookList.count - 1, section: 0)],
+                    with: .automatic
                 )
-            default:
-                break
+            }
         }
     }
 }

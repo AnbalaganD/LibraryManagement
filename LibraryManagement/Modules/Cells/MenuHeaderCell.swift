@@ -34,27 +34,6 @@ final class MenuHeaderCell: UITableViewHeaderFooterView {
 
 extension MenuHeaderCell {
     private func setupView() {
-        let contentView = UIView(frame: .zero)
-        contentView.translatesAutoresizingMaskIntoConstraints = false
-        contentView.backgroundColor = .white
-        addSubview(contentView)
-
-        NSLayoutConstraint.activate(
-            NSLayoutConstraint.constraints(
-                withVisualFormat: "H:|[contentView]|",
-                options: [],
-                metrics: nil,
-                views: ["contentView": contentView]
-            )
-            +
-            NSLayoutConstraint.constraints(
-                withVisualFormat: "V:|[contentView]|",
-                options: [],
-                metrics: nil,
-                views: ["contentView": contentView]
-            )
-        )
-
         userImageView = UIImageView(frame: .zero)
         userImageView.translatesAutoresizingMaskIntoConstraints = false
         userImageView.contentMode = .scaleToFill

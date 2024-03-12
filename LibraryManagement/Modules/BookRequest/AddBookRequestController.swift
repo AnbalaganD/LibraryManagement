@@ -89,7 +89,7 @@ final class AddBookRequestController: UIViewController {
 
 extension AddBookRequestController {
     private func setupView() {
-        view.backgroundColor = .white
+        view.backgroundColor = .systemBackground
         title = "Add Book Request"
 
         bookPickerView = UIPickerView(frame: .zero)

@@ -42,22 +42,22 @@ extension MenuCell {
         menuImageView = UIImageView(frame: .zero)
         menuImageView.translatesAutoresizingMaskIntoConstraints = false
         menuImageView.contentMode = .scaleToFill
-        addSubview(menuImageView)
+        contentView.addSubview(menuImageView)
 
-        menuImageView.leadingAnchor.constraint(equalTo: leadingAnchor, constant: 20).isActive = true
+        menuImageView.leadingAnchor.constraint(equalTo: contentView.leadingAnchor, constant: 20).isActive = true
         menuImageView.heightAnchor.constraint(equalToConstant: 20).isActive = true
         menuImageView.widthAnchor.constraint(equalToConstant: 20).isActive = true
-        menuImageView.centerYAnchor.constraint(equalTo: centerYAnchor).isActive = true
+        menuImageView.centerYAnchor.constraint(equalTo: contentView.centerYAnchor).isActive = true
 
         menuTitleLabel = UILabel(frame: .zero)
         menuTitleLabel.translatesAutoresizingMaskIntoConstraints = false
         menuTitleLabel.textColor = .black
         menuTitleLabel.font = UIFont.systemFont(ofSize: 15, weight: .semibold)
-        addSubview(menuTitleLabel)
+        contentView.addSubview(menuTitleLabel)
 
         menuTitleLabel.leadingAnchor.constraint(equalTo: menuImageView.trailingAnchor, constant: 16).isActive = true
-        menuTitleLabel.trailingAnchor.constraint(equalTo: trailingAnchor, constant: -20).isActive = true
-        menuTitleLabel.centerYAnchor.constraint(equalTo: centerYAnchor).isActive = true
+        menuTitleLabel.trailingAnchor.constraint(equalTo: contentView.trailingAnchor, constant: -20).isActive = true
+        menuTitleLabel.centerYAnchor.constraint(equalTo: contentView.centerYAnchor).isActive = true
 
         badgeCountLabel = UILabel(frame: .zero)
         badgeCountLabel.translatesAutoresizingMaskIntoConstraints = false
@@ -66,10 +66,10 @@ extension MenuCell {
         badgeCountLabel.backgroundColor = .orange
         badgeCountLabel.layer.cornerRadius = 10
         badgeCountLabel.clipsToBounds = true
-        addSubview(badgeCountLabel)
+        contentView.addSubview(badgeCountLabel)
 
-        badgeCountLabel.trailingAnchor.constraint(equalTo: trailingAnchor, constant: -20).isActive = true
-        badgeCountLabel.centerYAnchor.constraint(equalTo: centerYAnchor).isActive = true
+        badgeCountLabel.trailingAnchor.constraint(equalTo: contentView.trailingAnchor, constant: -20).isActive = true
+        badgeCountLabel.centerYAnchor.constraint(equalTo: contentView.centerYAnchor).isActive = true
         badgeCountLabel.heightAnchor.constraint(equalToConstant: 20).isActive = true
     }
 }

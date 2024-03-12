@@ -218,8 +218,7 @@ extension AddBookController: UIImagePickerControllerDelegate, UINavigationContro
 
 extension AddBookController {
     private func setupView() {
-        view.backgroundColor = .white
-        navigationController?.navigationBar.isTranslucent = false
+        view.backgroundColor = .systemBackground
 
         scrollView = UIScrollView(frame: .zero)
         scrollView.translatesAutoresizingMaskIntoConstraints = false

@@ -63,18 +63,18 @@ extension BookCell {
 
         let baseView = ShadowView(frame: .zero)
         baseView.translatesAutoresizingMaskIntoConstraints = false
-        baseView.backgroundColor = .white
+        baseView.backgroundColor = .systemBackground
         baseView.shadowColor = UIColor(white: 0, alpha: 0.35)
         baseView.shadowRadius = 2.0
         baseView.dx = 1.0
         baseView.dy = 1.0
         baseView.shadowOpacity = 0.3
-        addSubview(baseView)
+        contentView.addSubview(baseView)
 
-        baseView.trailingAnchor.constraint(equalTo: trailingAnchor, constant: -8).isActive = true
-        baseView.leadingAnchor.constraint(equalTo: leadingAnchor, constant: 8).isActive = true
-        baseView.topAnchor.constraint(equalTo: topAnchor, constant: 4).isActive = true
-        baseView.bottomAnchor.constraint(equalTo: bottomAnchor, constant: -4).isActive = true
+        baseView.trailingAnchor.constraint(equalTo: contentView.trailingAnchor, constant: -8).isActive = true
+        baseView.leadingAnchor.constraint(equalTo: contentView.leadingAnchor, constant: 8).isActive = true
+        baseView.topAnchor.constraint(equalTo: contentView.topAnchor, constant: 4).isActive = true
+        baseView.bottomAnchor.constraint(equalTo: contentView.bottomAnchor, constant: -4).isActive = true
 
         coverImageView = UIImageView(frame: .zero)
         coverImageView.translatesAutoresizingMaskIntoConstraints = false

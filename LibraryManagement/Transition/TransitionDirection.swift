@@ -7,5 +7,6 @@
 //
 
 enum TransitionDirection {
-    case left, right
+    case left
+    case right
 }
