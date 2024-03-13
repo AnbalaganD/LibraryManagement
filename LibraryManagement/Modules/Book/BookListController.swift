@@ -28,7 +28,7 @@ final class BookListController: UIViewController {
     override func viewWillAppear(_ animated: Bool) {
         super.viewWillAppear(animated)
         DispatchQueue.main.asyncAfter(deadline: .now() + 0.05) {
-            self.searchBar(self.searchBar, textDidChange: self.searchBar.text ?? "")
+            self.searchBar(self.searchBar, textDidChange: self.searchBar.text ?? .empty)
         }
     }
 
