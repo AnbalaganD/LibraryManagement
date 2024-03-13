@@ -278,7 +278,7 @@ extension BookListController: UITableViewDelegate, UITableViewDataSource {
             ]
         )
     }
-    
+
     func tableView(
         _ tableView: UITableView,
         contextMenuConfigurationForRowAt indexPath: IndexPath,

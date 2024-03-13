@@ -44,6 +44,7 @@
 		54CD5A18229D352300B73CC1 /* NotificationCell.swift in Sources */ = {isa = PBXBuildFile; fileRef = 54CD5A17229D352300B73CC1 /* NotificationCell.swift */; };
 		54CD5A1A229D39C400B73CC1 /* LibraryNotification.swift in Sources */ = {isa = PBXBuildFile; fileRef = 54CD5A19229D39C400B73CC1 /* LibraryNotification.swift */; };
 		54E1170A229817020026C6CD /* ShortcutIdentifier.swift in Sources */ = {isa = PBXBuildFile; fileRef = 54E11709229817020026C6CD /* ShortcutIdentifier.swift */; };
+		993118982BA20DE1007B0A34 /* DateExtension.swift in Sources */ = {isa = PBXBuildFile; fileRef = 993118972BA20DE1007B0A34 /* DateExtension.swift */; };
 /* End PBXBuildFile section */
 
 /* Begin PBXFileReference section */
@@ -86,6 +87,7 @@
 		54CD5A17229D352300B73CC1 /* NotificationCell.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = NotificationCell.swift; sourceTree = "<group>"; };
 		54CD5A19229D39C400B73CC1 /* LibraryNotification.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = LibraryNotification.swift; sourceTree = "<group>"; };
 		54E11709229817020026C6CD /* ShortcutIdentifier.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = ShortcutIdentifier.swift; sourceTree = "<group>"; };
+		993118972BA20DE1007B0A34 /* DateExtension.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = DateExtension.swift; sourceTree = "<group>"; };
 /* End PBXFileReference section */
 
 /* Begin PBXFrameworksBuildPhase section */
@@ -174,6 +176,7 @@
 				540B3664228C3A3800D123EE /* StringExtension.swift */,
 				540B3666228C3AB300D123EE /* ViewControllerExtension.swift */,
 				54673FF22ADCE00D0073B0A6 /* UIViewExtension.swift */,
+				993118972BA20DE1007B0A34 /* DateExtension.swift */,
 			);
 			path = Extension;
 			sourceTree = "<group>";
@@ -348,6 +351,7 @@
 				54C355FF229293BC0003E57D /* BookRequestController.swift in Sources */,
 				5415911A229519A4002EAF66 /* BookRequest.swift in Sources */,
 				5420912D228ECF70002320A4 /* SideMenuController.swift in Sources */,
+				993118982BA20DE1007B0A34 /* DateExtension.swift in Sources */,
 				5407B6F4228D7FFA000B1580 /* SlideTransitionAnimator.swift in Sources */,
 				540B365F228C35F100D123EE /* BookListController.swift in Sources */,
 				540B3667228C3AB300D123EE /* ViewControllerExtension.swift in Sources */,

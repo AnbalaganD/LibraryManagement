@@ -9,9 +9,7 @@
 import Foundation
 
 extension String {
-    static var empty: String {
-        return ""
-    }
+    static let empty: String = ""
 
     func substring(
         fromIndex: Int,

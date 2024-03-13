@@ -25,9 +25,9 @@ final class NotificationCell: UITableViewCell {
     }
 
     func setupData(data: LibraryNotification) {
-        notificationTitleLabel.text = data.title
-        dateLabel.text = data.date
-        notificationDetailLabel.text = data.detail
+        notificationTitleLabel.text = "New Book Request"
+        dateLabel.text = data.date.toString(format: "dd/MM/yyyy")
+        notificationDetailLabel.text = "\(data.userName) is request \(data.bookName)"
     }
 }
 

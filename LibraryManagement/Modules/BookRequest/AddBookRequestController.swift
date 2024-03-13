@@ -27,20 +27,14 @@ final class AddBookRequestController: UIViewController {
         setupView()
     }
 
-    @objc private func requestBookTapped(_: UIButton) {
+    @objc private func requestBookTapped() {
         if let book = selectedBook {
             bookNotSelectedErrorLabel.isHidden = true
-
-            let formatter = DateFormatter()
-            formatter.dateFormat = "dd/MM/yyyy 'at' HH:mm a"
-            formatter.amSymbol = "AM"
-            formatter.pmSymbol = "PM"
-            let date = formatter.string(from: Date())
 
             let bookRequest = BookRequest(
                 id: UUID().uuidString.substring(fromIndex: 0, count: 8),
                 userName: "Anbalagan D",
-                date: date,
+                date: .now,
                 bookName: book.name,
                 status: .pending,
                 bookId: book.id
@@ -51,35 +45,7 @@ final class AddBookRequestController: UIViewController {
             navigationController?.popViewController(animated: true)
 
             if AppSettings.isNotificationEnable {
-                let content = UNMutableNotificationContent()
-                content.title = "New Book Request"
-                content.body = "\(bookRequest.userName) is request \(bookRequest.bookName)"
-                content.sound = UNNotificationSound.default
-
-                let trigger = UNTimeIntervalNotificationTrigger(
-                    timeInterval: 0.1,
-                    repeats: false
-                )
-                let notificationRequest = UNNotificationRequest(
-                    identifier: "newBookRequest",
-                    content: content,
-                    trigger: trigger
-                )
-
-                let notificationDateFormatter = DateFormatter()
-                notificationDateFormatter.dateFormat = "dd/MM/yyyy"
-                let notificationDate = notificationDateFormatter.string(from: Date())
-                NotificationManager.shared.addNotification(
-                    notification: LibraryNotification(
-                        title: content.title,
-                        detail: content.body,
-                        date: notificationDate
-                    )
-                )
-
-                UNUserNotificationCenter.current().add(notificationRequest) { error in
-                    print(error?.localizedDescription ?? "Error")
-                }
+                NotificationManager.shared.addNotification(notification: bookRequest)
             }
         } else {
             bookNotSelectedErrorLabel.isHidden = false

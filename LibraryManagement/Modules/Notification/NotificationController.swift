@@ -63,7 +63,7 @@ extension NotificationController {
             notificationTableView.trailingAnchor.constraint(equalTo: view.safeTrailingAnchor),
             notificationTableView.topAnchor.constraint(equalTo: view.safeTopAnchor),
             notificationTableView.bottomAnchor.constraint(equalTo: view.safeBottomAnchor),
-            
+
             emptyImageView.centerYAnchor.constraint(equalTo: emptyView.centerYAnchor, constant: -20),
             emptyImageView.centerXAnchor.constraint(equalTo: emptyView.centerXAnchor),
             emptyImageView.heightAnchor.constraint(equalToConstant: 120),

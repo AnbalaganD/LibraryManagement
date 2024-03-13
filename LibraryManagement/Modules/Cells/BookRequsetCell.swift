@@ -42,7 +42,7 @@ final class BookRequsetCell: UITableViewCell {
 
         userNameLabel.text = data.userName
         requestIdLabel.text = "#\(data.id)"
-        dateLabel.text = data.date
+        dateLabel.text = data.date.toString(format: "dd/MM/yyyy 'at' hh:mm a")
         bookNameLabel.text = data.bookName
 
         updateStatus(data.status)

@@ -7,39 +7,25 @@
 //
 
 import UIKit
-import UserNotifications
 
 @main
 final class AppDelegate: UIResponder, UIApplicationDelegate {
     var window: UIWindow?
 
-    var launchedShortcutItem: UIApplicationShortcutItem?
-
     func application(
         _ application: UIApplication,
         didFinishLaunchingWithOptions _: [UIApplication.LaunchOptionsKey: Any]?
     ) -> Bool {
-        window = UIWindow(frame: UIScreen.main.bounds)
-
-        UNUserNotificationCenter.current().requestAuthorization(
-            options: [.alert, .badge, .sound]
-        ) { granted, _ in
-            if !granted {
-                print("User has declined notification")
-            }
-        }
-        UNUserNotificationCenter.current().delegate = self
-        UNUserNotificationCenter.current().setBadgeCount(0)
         let navController = UINavigationController(rootViewController: BookListController())
+        window = UIWindow(frame: UIScreen.main.bounds)
         window?.rootViewController = navController
-
         window?.makeKeyAndVisible()
         window?.tintColor = .orange
         return true
     }
 
     func applicationDidBecomeActive(_ application: UIApplication) {
-        UNUserNotificationCenter.current().setBadgeCount(0)
+        NotificationManager.shared.setNotificationBadgeCount(0)
     }
 
     func application(
@@ -66,26 +52,5 @@ final class AppDelegate: UIResponder, UIApplicationDelegate {
                 }
             }
         }
-    }
-}
-
-extension AppDelegate: UNUserNotificationCenterDelegate {
-    func userNotificationCenter(
-        _: UNUserNotificationCenter,
-        didReceive response: UNNotificationResponse,
-        withCompletionHandler completionHandler: @escaping () -> Void
-    ) {
-        UNUserNotificationCenter.current().setBadgeCount(0)
-        print(response.notification.request.content.title)
-        completionHandler()
-    }
-
-    func userNotificationCenter(
-        _: UNUserNotificationCenter,
-        willPresent _: UNNotification,
-        withCompletionHandler completionHandler: @escaping (UNNotificationPresentationOptions) -> Void
-    ) {
-        UNUserNotificationCenter.current().setBadgeCount(0)
-        completionHandler([.list, .banner, .badge, .sound])
     }
 }

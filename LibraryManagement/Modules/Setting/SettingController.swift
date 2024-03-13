@@ -11,6 +11,7 @@ import UserNotifications
 
 final class SettingController: UIViewController {
     private var notificationSwitch: UISwitch!
+    private let notificationManager = NotificationManager.shared
 
     override func viewDidLoad() {
         super.viewDidLoad()
@@ -23,7 +24,20 @@ final class SettingController: UIViewController {
     }
 
     @objc private func notificationChanged(_ sender: UISwitch) {
-        AppSettings.isNotificationEnable = sender.isOn
+        notificationManager.requestNotificationAuthorization { granded in
+            DispatchQueue.main.async {
+                if granded {
+                    AppSettings.isNotificationEnable = sender.isOn
+                } else {
+                    if sender.isOn {
+                        sender.isOn = false
+                        if let url = URL(string: UIApplication.openSettingsURLString) {
+                            UIApplication.shared.open(url)
+                        }
+                    }
+                }
+            }
+        }
     }
 
     @objc private func onLogout() {

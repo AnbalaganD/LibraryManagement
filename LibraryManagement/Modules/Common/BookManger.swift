@@ -23,7 +23,9 @@ final class BookManager {
     private var bookList = [Book]()
 
     private init() {
+        #if DEBUG
         addMockData()
+        #endif
     }
 
     func getBooks() -> [Book] {
@@ -96,6 +98,7 @@ final class BookManager {
         }
     }
 
+    #if DEBUG
     private func addMockData() {
         bookList.append(contentsOf: [
             Book(
@@ -136,12 +139,12 @@ final class BookManager {
             )
         ])
 
-        // Book Request List
+        let startDate = Date().addingTimeInterval(-(60 * 60 * 24 * 30)) // From last one month
         bookRequestList.append(contentsOf: [
             BookRequest(
                 id: UUID().uuidString.substring(fromIndex: 0, count: 8),
                 userName: "Anbalagan D",
-                date: "13/05/2019 at 12:05 PM",
+                date: .randomDate(in: startDate ... .now),
                 bookName: "Java Programming 8",
                 status: .pending,
                 bookId: bookList[0].id
@@ -149,7 +152,7 @@ final class BookManager {
             BookRequest(
                 id: UUID().uuidString.substring(fromIndex: 0, count: 8),
                 userName: "Anbalagan D",
-                date: "15/05/2019 at 06:43 AM",
+                date: .randomDate(in: startDate ... .now),
                 bookName: "Advanced C# Programming",
                 status: .pending,
                 bookId: bookList[3].id
@@ -157,11 +160,12 @@ final class BookManager {
             BookRequest(
                 id: UUID().uuidString.substring(fromIndex: 0, count: 8),
                 userName: "Anbalagan D",
-                date: "20/05/2019 at 01:27 PM",
+                date: .randomDate(in: startDate ... .now),
                 bookName: "Kotlin for Android",
                 status: .pending,
                 bookId: bookList[2].id
             )
         ])
     }
+    #endif
 }
