@@ -29,11 +29,11 @@ final class SettingController: UIViewController {
                 if granded {
                     AppSettings.isNotificationEnable = sender.isOn
                 } else {
-                    if sender.isOn {
-                        sender.isOn = false
-                        if let url = URL(string: UIApplication.openSettingsURLString) {
-                            UIApplication.shared.open(url)
-                        }
+                    if !sender.isOn { return }
+
+                    sender.isOn = false
+                    if let url = URL(string: UIApplication.openSettingsURLString) {
+                        UIApplication.shared.open(url)
                     }
                 }
             }
