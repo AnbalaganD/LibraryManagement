@@ -7,5 +7,7 @@
 //
 
 enum BookRequestStatus {
-    case accept, reject, pending
+    case accept 
+    case reject
+    case pending
 }
