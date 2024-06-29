@@ -10,7 +10,7 @@ import Foundation
 import UserNotifications
 
 final class NotificationManager: NSObject {
-    static let shared = NotificationManager()
+    nonisolated(unsafe) static let shared = NotificationManager()
 
     private var notificationList = [LibraryNotification]()
 
