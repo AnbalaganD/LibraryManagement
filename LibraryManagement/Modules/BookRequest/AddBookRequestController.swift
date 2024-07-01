@@ -139,7 +139,9 @@ extension AddBookRequestController: UIPickerViewDataSource, UIPickerViewDelegate
     }
 
     func pickerView(_: UIPickerView, didSelectRow row: Int, inComponent _: Int) {
-        selectedBook = BookManager.shared.getBooks()[row]
+        let books = BookManager.shared.getBooks()
+        if books.isEmpty { return }
+        selectedBook = books[row]
         bookNameTextView.text = selectedBook?.name
         bookNotSelectedErrorLabel.isHidden = true
     }
@@ -147,7 +149,9 @@ extension AddBookRequestController: UIPickerViewDataSource, UIPickerViewDelegate
     @objc private func pickerDoneTapped() {
         bookNameTextView.resignFirstResponder()
         let row = bookPickerView.selectedRow(inComponent: 0)
-        selectedBook = BookManager.shared.getBooks()[row]
+        let books = BookManager.shared.getBooks()
+        if books.isEmpty { return }
+        selectedBook = books[row]
         bookNameTextView.text = selectedBook?.name
         bookNotSelectedErrorLabel.isHidden = row != -1
     }
