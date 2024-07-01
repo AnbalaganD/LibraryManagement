@@ -29,12 +29,29 @@ final class LibraryFileManager {
 //        self.fileManager = fileManager
 //    }
     
-    func save(file url: URL) throws {
-        if url.isFileURL {
+    func save(file url: URL) throws -> String {
+        if !url.isFileURL {
             throw FileOperationError.invalidFilePath
         }
         
-        print("File Saved")
+        try ensureDirectoryAvailability(at: bookCoverImagePath.path)
+        let fileName = url.lastPathComponent
+        let destinationURL = bookCoverImagePath.appendingPathComponent(fileName)
+        
+        try fileManager.copyItem(at: url, to: destinationURL)
+        return destinationURL.lastPathComponent
+    }
+    
+    func save(data: Data, fileName: String) throws {
+        try ensureDirectoryAvailability(at: bookCoverImagePath.path)
+        let destinationURL = bookCoverImagePath.appendingPathComponent(fileName)
+        fileManager.createFile(atPath: destinationURL.path, contents: data)
+    }
+    
+    private func ensureDirectoryAvailability(at path: String) throws {
+        if !fileManager.fileExists(atPath: path) {
+            try fileManager.createDirectory(atPath: path, withIntermediateDirectories: true)
+        }
     }
 }
 

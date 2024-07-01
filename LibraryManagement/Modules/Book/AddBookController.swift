@@ -211,7 +211,18 @@ extension AddBookController: UIImagePickerControllerDelegate, UINavigationContro
         didFinishPickingMediaWithInfo info: [UIImagePickerController.InfoKey: Any]
     ) {
         picker.dismiss(animated: true)
-        coverImageView.image = info[.originalImage] as? UIImage
+
+        if let image = info[.originalImage] as? UIImage,
+           let data = image.jpegData(compressionQuality: 0.5) {
+            coverImageView.image = image
+            
+            let fileManager = LibraryFileManager()
+            let imageName = "\(UUID().uuidString).jpeg"
+            try! fileManager.save(data: data, fileName: imageName)
+            coverImageUrl = imageName
+        }
+        
+        //TODO: Below instruction maintained for backward compatability, will remove in future
         coverImageUrl = (info[.imageURL] as? URL)?.absoluteString
     }
 }
