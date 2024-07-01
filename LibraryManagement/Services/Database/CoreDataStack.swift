@@ -9,7 +9,6 @@
 import CoreData
 
 final class CoreDataStack {
-    
     private var persistentContainer: NSPersistentContainer!
     
     nonisolated(unsafe) static let shared = CoreDataStack()

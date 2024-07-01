@@ -50,6 +50,7 @@
 		999DDCBB2BB5CF6E00323168 /* BookEntity.swift in Sources */ = {isa = PBXBuildFile; fileRef = 999DDCBA2BB5CF6E00323168 /* BookEntity.swift */; };
 		999DDCC12BB75D8B00323168 /* LibraryFileManager.swift in Sources */ = {isa = PBXBuildFile; fileRef = 999DDCC02BB75D8B00323168 /* LibraryFileManager.swift */; };
 		999DDCC32BB828B700323168 /* LibraryDataManager.swift in Sources */ = {isa = PBXBuildFile; fileRef = 999DDCC22BB828B700323168 /* LibraryDataManager.swift */; };
+		99BC3E802C3305CF00D1D9E4 /* NSManagedObjectContextExtension.swift in Sources */ = {isa = PBXBuildFile; fileRef = 99BC3E7F2C3305CF00D1D9E4 /* NSManagedObjectContextExtension.swift */; };
 		99DA990C2BAEE1C70097C112 /* CoreDataStack.swift in Sources */ = {isa = PBXBuildFile; fileRef = 99DA990B2BAEE1C70097C112 /* CoreDataStack.swift */; };
 /* End PBXBuildFile section */
 
@@ -99,6 +100,7 @@
 		999DDCBA2BB5CF6E00323168 /* BookEntity.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = BookEntity.swift; sourceTree = "<group>"; };
 		999DDCC02BB75D8B00323168 /* LibraryFileManager.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = LibraryFileManager.swift; sourceTree = "<group>"; };
 		999DDCC22BB828B700323168 /* LibraryDataManager.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = LibraryDataManager.swift; sourceTree = "<group>"; };
+		99BC3E7F2C3305CF00D1D9E4 /* NSManagedObjectContextExtension.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = NSManagedObjectContextExtension.swift; sourceTree = "<group>"; };
 		99DA990B2BAEE1C70097C112 /* CoreDataStack.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = CoreDataStack.swift; sourceTree = "<group>"; };
 /* End PBXFileReference section */
 
@@ -194,6 +196,7 @@
 				540B3666228C3AB300D123EE /* ViewControllerExtension.swift */,
 				54673FF22ADCE00D0073B0A6 /* UIViewExtension.swift */,
 				993118972BA20DE1007B0A34 /* DateExtension.swift */,
+				99BC3E7F2C3305CF00D1D9E4 /* NSManagedObjectContextExtension.swift */,
 			);
 			path = Extension;
 			sourceTree = "<group>";
@@ -442,6 +445,7 @@
 				5420912A228EC866002320A4 /* MenuHeaderCell.swift in Sources */,
 				999DDCC32BB828B700323168 /* LibraryDataManager.swift in Sources */,
 				999DDCC12BB75D8B00323168 /* LibraryFileManager.swift in Sources */,
+				99BC3E802C3305CF00D1D9E4 /* NSManagedObjectContextExtension.swift in Sources */,
 				54209124228EC3C5002320A4 /* TransitionDirection.swift in Sources */,
 				5407B6ED228D6A7A000B1580 /* AddBookController.swift in Sources */,
 				540B3642228C338600D123EE /* AppDelegate.swift in Sources */,
