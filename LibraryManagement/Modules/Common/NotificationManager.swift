@@ -10,7 +10,7 @@ import Foundation
 import UserNotifications
 
 final class NotificationManager: NSObject {
-    static let shared = NotificationManager()
+    nonisolated(unsafe) static let shared = NotificationManager()
 
     private var notificationList = [LibraryNotification]()
 
@@ -23,7 +23,7 @@ final class NotificationManager: NSObject {
         UNUserNotificationCenter.current().delegate = self
     }
 
-    func requestNotificationAuthorization(_ completion: @escaping (Bool) -> Void) {
+    func requestNotificationAuthorization(_ completion: @Sendable @escaping (Bool) -> Void) {
         UNUserNotificationCenter.current().requestAuthorization(
             options: [.alert, .badge, .sound]
         ) { granted, _ in

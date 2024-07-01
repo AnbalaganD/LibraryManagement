@@ -7,6 +7,7 @@
 //
 
 import Foundation
+import CoreData
 
 enum BookMangerError: String, Error {
     case bookNotFound = "Book Not Found"
@@ -17,7 +18,7 @@ enum BookMangerError: String, Error {
 }
 
 final class BookManager {
-    static let shared = BookManager()
+    nonisolated(unsafe) static let shared = BookManager()
 
     private var bookRequestList = [BookRequest]()
     private var bookList = [Book]()
@@ -25,6 +26,7 @@ final class BookManager {
     private init() {
         #if DEBUG
         addMockData()
+        addDummyDataToDatabase()
         #endif
     }
 
@@ -166,6 +168,29 @@ final class BookManager {
                 bookId: bookList[2].id
             )
         ])
+    }
+    
+    private func addDummyDataToDatabase() {
+        Task {
+            await CoreDataStack.shared.performBackgroundTask { managedObjectContext in
+                guard let bookEntityDescription = NSEntityDescription.entity(
+                    forEntityName: "Book",
+                    in: managedObjectContext
+                ) else {
+                    return
+                }
+                
+//                let bookEntity = BookEntity(
+//                    entity: bookEntityDescription,
+//                    insertInto: managedObjectContext
+//                )
+                
+                let bookEntity = BookEntity(context: managedObjectContext)
+                
+                print(bookEntity.author)
+                try? managedObjectContext.save()
+            }
+        }
     }
     #endif
 }
