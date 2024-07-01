@@ -23,7 +23,7 @@ final class NotificationManager: NSObject {
         UNUserNotificationCenter.current().delegate = self
     }
 
-    func requestNotificationAuthorization(_ completion: @escaping (Bool) -> Void) {
+    func requestNotificationAuthorization(_ completion: @Sendable @escaping (Bool) -> Void) {
         UNUserNotificationCenter.current().requestAuthorization(
             options: [.alert, .badge, .sound]
         ) { granted, _ in
