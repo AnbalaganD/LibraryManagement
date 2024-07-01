@@ -8,10 +8,10 @@
 
 import Foundation
 
-typealias UserDefaultsKey = Constants.UserDefaults
+private typealias UserDefaultsKey = Constants.UserDefaults
 
 enum AppSettings {
-    private static var userDefault = UserDefaults.standard
+    nonisolated(unsafe) private static var userDefault = UserDefaults.standard
 
     static var isNotificationEnable: Bool {
         get { userDefault.bool(forKey: UserDefaultsKey.isNotificationEnable) }
