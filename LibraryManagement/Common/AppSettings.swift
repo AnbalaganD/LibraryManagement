@@ -8,7 +8,7 @@
 
 import Foundation
 
-typealias UserDefaultsKey = Constants.UserDefaults
+private typealias UserDefaultsKey = Constants.UserDefaults
 
 enum AppSettings {
     nonisolated(unsafe) private static var userDefault = UserDefaults.standard

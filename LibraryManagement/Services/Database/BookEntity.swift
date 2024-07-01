@@ -17,16 +17,6 @@ public class BookEntity: NSManagedObject {
     @NSManaged public var bookDescription: String
     @NSManaged public var coverImage: URL?
     @NSManaged public var stock: Int64
-    
-    override public func awakeFromInsert() {
-        super.awakeFromInsert()
-//        print(#function)
-//        setPrimitiveValue("0001", forKey: "id")
-//        setPrimitiveValue("Life Story of Anbu", forKey: "name")
-//        setPrimitiveValue("Anbu", forKey: "author")
-//        setPrimitiveValue("Nothing is special. Stay calm and foucs on your goal. And be happy yourself", forKey: "bookDescription")
-//        setPrimitiveValue(10, forKey: "stock")
-    }
 }
 
 extension BookEntity {
@@ -43,13 +33,6 @@ extension BookEntity {
         )
     }
 }
-
-//extension BookEntity {
-//    convenience init(book: Book, description: NSEntityDescription) {
-//        fatalError()
-//    }
-//}
-
 
 extension BookEntity: DomainConvertible {
     func toDomain() -> Book {

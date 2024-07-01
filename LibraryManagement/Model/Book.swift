@@ -14,14 +14,3 @@ struct Book {
     let coverImage: String
     var stock: Int
 }
-
-//extension Book {
-//    init(from entity: BookEntity) {
-//        self.id = entity.id
-//        self.name = entity.name
-//        self.author = entity.author
-//        self.description = entity.bookDescription
-//        self.coverImage = ""
-//        self.stock = Int(entity.stock)
-//    }
-//}

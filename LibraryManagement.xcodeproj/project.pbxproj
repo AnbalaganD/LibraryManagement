@@ -170,6 +170,7 @@
 		540B3656228C34F700D123EE /* Resource */ = {
 			isa = PBXGroup;
 			children = (
+				995F5C262C1C1F4D0000BA3F /* LibraryManagement.xcdatamodeld */,
 				540B364B228C338800D123EE /* Assets.xcassets */,
 			);
 			path = Resource;
@@ -178,7 +179,6 @@
 		540B3657228C350400D123EE /* Support */ = {
 			isa = PBXGroup;
 			children = (
-				995F5C262C1C1F4D0000BA3F /* LibraryManagement.xcdatamodeld */,
 				540B3641228C338600D123EE /* AppDelegate.swift */,
 				540B3650228C338800D123EE /* Info.plist */,
 				54E11709229817020026C6CD /* ShortcutIdentifier.swift */,
@@ -225,9 +225,7 @@
 		540B365C228C35BB00D123EE /* Common */ = {
 			isa = PBXGroup;
 			children = (
-				540B3668228C3B1000D123EE /* Constants.swift */,
 				543AF319229BEE2300158D28 /* BookManger.swift */,
-				54CD5A15229D185E00B73CC1 /* AppSettings.swift */,
 				5435EDF9229FA36A00A2FCC1 /* NotificationManager.swift */,
 			);
 			path = Common;
@@ -319,6 +317,8 @@
 		999DDCBF2BB75D3B00323168 /* Common */ = {
 			isa = PBXGroup;
 			children = (
+				54CD5A15229D185E00B73CC1 /* AppSettings.swift */,
+				540B3668228C3B1000D123EE /* Constants.swift */,
 			);
 			path = Common;
 			sourceTree = "<group>";
@@ -600,6 +600,10 @@
 				);
 				PRODUCT_BUNDLE_IDENTIFIER = anbu.LibraryManagement;
 				PRODUCT_NAME = "$(TARGET_NAME)";
+				SUPPORTED_PLATFORMS = "iphoneos iphonesimulator";
+				SUPPORTS_MACCATALYST = NO;
+				SUPPORTS_MAC_DESIGNED_FOR_IPHONE_IPAD = NO;
+				SUPPORTS_XR_DESIGNED_FOR_IPHONE_IPAD = NO;
 				SWIFT_VERSION = 6.0;
 				TARGETED_DEVICE_FAMILY = 1;
 			};
@@ -620,6 +624,10 @@
 				);
 				PRODUCT_BUNDLE_IDENTIFIER = anbu.LibraryManagement;
 				PRODUCT_NAME = "$(TARGET_NAME)";
+				SUPPORTED_PLATFORMS = "iphoneos iphonesimulator";
+				SUPPORTS_MACCATALYST = NO;
+				SUPPORTS_MAC_DESIGNED_FOR_IPHONE_IPAD = NO;
+				SUPPORTS_XR_DESIGNED_FOR_IPHONE_IPAD = NO;
 				SWIFT_VERSION = 6.0;
 				TARGETED_DEVICE_FAMILY = 1;
 			};
