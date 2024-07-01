@@ -53,7 +53,7 @@ final class LibraryDataManager {
             } else {
                 // Update stock count of existing book
                 let bookEntity = bookEntities[0]
-                bookEntity.stock = bookEntity.stock + 1
+                bookEntity.stock += 1
             }
             try context.save()
         }

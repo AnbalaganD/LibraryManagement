@@ -218,7 +218,7 @@ extension AddBookController: UIImagePickerControllerDelegate, UINavigationContro
             
             let fileManager = LibraryFileManager()
             let imageName = "\(UUID().uuidString).jpeg"
-            try! fileManager.save(data: data, fileName: imageName)
+            try? fileManager.save(data: data, fileName: imageName)
             coverImageUrl = imageName
         }
         
