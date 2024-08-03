@@ -31,10 +31,8 @@ final class LibraryDataManager {
     func addOrUpdate(book: Book) async throws {
         try await coredataStack.performBackgroundTask { context in
             let fetchRequest = BookEntity.fetchRequest()
-            let author = book.author
-            let name = book.name
             
-            let bookPredicate = #Predicate<BookEntity> { entity in
+            let bookPredicate = #Predicate<BookEntity> {[author = book.author, name = book.name] entity in
                 entity.author == author && entity.name == name
             }
             fetchRequest.predicate = NSPredicate(bookPredicate)
