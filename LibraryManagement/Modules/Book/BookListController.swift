@@ -61,7 +61,7 @@ final class BookListController: UIViewController {
 
 extension BookListController: UISearchBarDelegate {
     func searchBar(
-        _: UISearchBar,
+        _ searchbar: UISearchBar,
         textDidChange searchText: String
     ) {
         if searchText.isEmpty {

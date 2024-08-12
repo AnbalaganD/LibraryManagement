@@ -102,71 +102,48 @@ final class BookManager {
 
     #if DEBUG
     private func addMockData() {
-        bookList.append(contentsOf: [
-            Book(
-                id: UUID().uuidString,
-                name: "Java Programming 8",
-                author:
-                    "James gosling",
-                description: "Java is a general purpose programming language that is class based, object oriented, and designed to have as few implementation dependencies as possible.",
-                coverImage: "java_logo",
-                stock: 10
-            ),
-            Book(
-                id: UUID().uuidString,
-                name: "Swift 5",
-                author:
-                    "Paul Hudson",
-                description: "Swift 5 is finally available in Xcode 10.2! This release brings ABI stability and improves the language with some long-awaited features.",
-                coverImage: "swift",
-                stock: 5
-            ),
-            Book(
-                id: UUID().uuidString,
-                name: "Kotlin for Android",
-                author:
-                    "Andrey Breslav",
-                description: "Kotlin is ideal for Android app development, offering modern language benefits without additional constraints.",
-                coverImage: "kotlin",
-                stock: 0
-            ),
-            Book(
-                id: UUID().uuidString,
-                name: "Advanced C# Programming",
-                author:
-                    "Anders Hejlsberg",
-                description: "C# is a simple, modern, general-purpose, object-oriented programming language developed by Microsoft within its .NET initiative led by Anders Hejlsberg",
-                coverImage: "c_sharp",
-                stock: 1
-            )
-        ])
+        guard let bookJSONFileURL = Bundle.main.url(forResource: "books", withExtension: "json"),
+        let booksData = try? Data(contentsOf: bookJSONFileURL) else {
+            return
+        }
+        
+        guard let books = try? JSONDecoder().decode([Book].self, from: booksData) else {
+            return
+        }
+        
+        bookList.append(contentsOf: books)
 
         let startDate = Date().addingTimeInterval(-(60 * 60 * 24 * 30)) // From last one month
+        
+        let bookRequest1 = bookList.randomElement()!
+        let bookRequest2 = bookList.randomElement()!
+        let bookRequest3 = bookList.randomElement()!
+        
         bookRequestList.append(contentsOf: [
             BookRequest(
                 id: UUID().uuidString.substring(fromIndex: 0, count: 8),
                 userName: "Anbalagan D",
                 date: .randomDate(in: startDate ... .now),
-                bookName: "Java Programming 8",
+                bookName: bookRequest1.name,
                 status: .pending,
-                bookId: bookList[0].id
+                bookId: bookRequest1.id
             ),
             BookRequest(
                 id: UUID().uuidString.substring(fromIndex: 0, count: 8),
                 userName: "Anbalagan D",
                 date: .randomDate(in: startDate ... .now),
-                bookName: "Advanced C# Programming",
+                bookName: bookRequest2.name,
                 status: .pending,
-                bookId: bookList[3].id
+                bookId: bookRequest2.id
             ),
             BookRequest(
                 id: UUID().uuidString.substring(fromIndex: 0, count: 8),
                 userName: "Anbalagan D",
                 date: .randomDate(in: startDate ... .now),
-                bookName: "Kotlin for Android",
+                bookName: bookRequest3.name,
                 status: .pending,
-                bookId: bookList[2].id
-            )
+                bookId: bookRequest3.id
+            ),
         ])
     }
     

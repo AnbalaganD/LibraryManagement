@@ -6,7 +6,9 @@
 //  Copyright © 2019 Anbalagan D. All rights reserved.
 //
 
-struct Book {
+import Foundation
+
+struct Book: Decodable {
     let id: String
     let name: String
     let author: String
