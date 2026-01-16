@@ -86,7 +86,7 @@ extension BookRequestController: UITableViewDataSource {
     }
 }
 
-extension BookRequestController: @preconcurrency BookRequestCellDelegate {
+extension BookRequestController: BookRequestCellDelegate {
     func rejectRequest(request: BookRequest) {
         do {
             try BookManager.shared.updateRequestyStatus(
@@ -112,7 +112,7 @@ extension BookRequestController: @preconcurrency BookRequestCellDelegate {
     }
 }
 
-extension BookRequestController: @preconcurrency AddBookRequestDelegate {
+extension BookRequestController: AddBookRequestDelegate {
     func onNewBookRequestAdded(request _: BookRequest) {
         bookRequestTableView.reloadData()
     }

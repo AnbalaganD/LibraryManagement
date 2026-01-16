@@ -21,7 +21,7 @@ final class AppDelegate: UIResponder, UIApplicationDelegate {
         window?.rootViewController = navController
         window?.makeKeyAndVisible()
         window?.tintColor = .orange
-        let fm = LibraryFileManager()
+        _ = LibraryFileManager()
         return true
     }
 

@@ -18,7 +18,7 @@ enum BookMangerError: String, Error {
 }
 
 final class BookManager {
-    nonisolated(unsafe) static let shared = BookManager()
+    static let shared = BookManager()
 
     private var bookRequestList = [BookRequest]()
     private var bookList = [Book]()
@@ -150,18 +150,6 @@ final class BookManager {
     private func addDummyDataToDatabase() {
         Task {
             await CoreDataStack.shared.performBackgroundTask { managedObjectContext in
-                guard let bookEntityDescription = NSEntityDescription.entity(
-                    forEntityName: "Book",
-                    in: managedObjectContext
-                ) else {
-                    return
-                }
-                
-//                let bookEntity = BookEntity(
-//                    entity: bookEntityDescription,
-//                    insertInto: managedObjectContext
-//                )
-                
                 let bookEntity = BookEntity(context: managedObjectContext)
                 
                 print(bookEntity.author)

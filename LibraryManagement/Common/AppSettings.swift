@@ -14,7 +14,7 @@ enum AppSettings {
     nonisolated(unsafe) private static var userDefault = UserDefaults.standard
 
     static var isNotificationEnable: Bool {
-        get { userDefault.bool(forKey: UserDefaultsKey.isNotificationEnable) }
-        set { userDefault.set(newValue, forKey: UserDefaultsKey.isNotificationEnable) }
+        get { unsafe userDefault.bool(forKey: UserDefaultsKey.isNotificationEnable) }
+        set { unsafe userDefault.set(newValue, forKey: UserDefaultsKey.isNotificationEnable) }
     }
 }

@@ -20,7 +20,7 @@ public class BookEntity: NSManagedObject {
 }
 
 extension BookEntity {
-    @nonobjc public class func fetchRequest() -> NSFetchRequest<BookEntity> {
+    @nonobjc nonisolated public class func fetchRequest() -> NSFetchRequest<BookEntity> {
         return NSFetchRequest<BookEntity>(entityName: "Book")
     }
     
@@ -35,7 +35,7 @@ extension BookEntity {
 }
 
 extension BookEntity: DomainConvertible {
-    func toDomain() -> Book {
+    nonisolated func toDomain() -> Book {
         Book(
             id: id,
             name: name,

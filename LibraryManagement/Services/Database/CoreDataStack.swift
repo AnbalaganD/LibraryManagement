@@ -11,7 +11,7 @@ import CoreData
 final class CoreDataStack {
     private var persistentContainer: NSPersistentContainer!
     
-    nonisolated(unsafe) static let shared = CoreDataStack()
+    static let shared = CoreDataStack()
     
     private init() {
         loadPresistentStore()
@@ -33,8 +33,9 @@ final class CoreDataStack {
         persistentContainer.newBackgroundContext()
     }
     
+    nonisolated
     func performBackgroundTask<T>(
-        _ block: @escaping (NSManagedObjectContext) throws -> T
+        _ block: @Sendable @escaping (NSManagedObjectContext) throws -> T
     ) async rethrows -> T {
         try await persistentContainer.performBackgroundTask(block)
     }

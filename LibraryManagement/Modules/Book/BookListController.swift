@@ -307,7 +307,7 @@ extension BookListController: UITableViewDelegate, UITableViewDataSource {
     }
 }
 
-extension BookListController: @preconcurrency AddBookControllerDelegate {
+extension BookListController: AddBookControllerDelegate {
     func onUpdate(book: Book?) {
         if let book {
             let index: Int? = bookList.firstIndex { $0.id == book.id }
@@ -335,7 +335,7 @@ extension BookListController: @preconcurrency AddBookControllerDelegate {
     }
 }
 
-extension BookListController: @preconcurrency SideMenuDelegate {
+extension BookListController: SideMenuDelegate {
     func didSelect(_ controller: SideMenuController, menu: SideMenu) {
         if menu.type == .home { return }
         let viewController = switch menu.type {

@@ -10,7 +10,7 @@ import Foundation
 import UserNotifications
 
 final class NotificationManager: NSObject {
-    nonisolated(unsafe) static let shared = NotificationManager()
+    static let shared = NotificationManager()
 
     private var notificationList = [LibraryNotification]()
 
@@ -31,7 +31,7 @@ final class NotificationManager: NSObject {
         }
     }
 
-    func checkHasNotificationPermission(_ completion: @escaping (Bool) -> Void) {
+    func checkHasNotificationPermission(_ completion: @escaping @Sendable (Bool) -> Void) {
         UNUserNotificationCenter.current().getNotificationSettings { notificationSettings in
             completion(notificationSettings.authorizationStatus == .authorized)
         }

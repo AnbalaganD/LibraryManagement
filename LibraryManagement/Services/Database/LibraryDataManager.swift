@@ -32,7 +32,9 @@ final class LibraryDataManager {
         try await coredataStack.performBackgroundTask { context in
             let fetchRequest = BookEntity.fetchRequest()
             
-            let bookPredicate = #Predicate<BookEntity> {[author = book.author, name = book.name] entity in
+            let author = book.author
+            let name = book.name
+            let bookPredicate = #Predicate<BookEntity> { entity in
                 entity.author == author && entity.name == name
             }
             fetchRequest.predicate = NSPredicate(bookPredicate)
@@ -57,3 +59,4 @@ final class LibraryDataManager {
         }
     }
 }
+
